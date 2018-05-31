@@ -11,7 +11,7 @@ module.exports = function makeDataHelpers(db) {
 
     readBusiness: function (data, cb) {
       console.log(data)
-      db.collection('businesses').find({_id: ObjectId(data)}).toArray().then((business) => {
+      db.collection('businesses').find(ObjectId(data)).toArray().then((business) => {
         cb(null, business)
       })
     },
@@ -20,6 +20,21 @@ module.exports = function makeDataHelpers(db) {
       db.collection('businesses').find({}).toArray().then((data) => {
         cb(null, data)
       })
+    },
+
+    updateBusiness: function (id, data, cb) {
+      console.log(`Inserting the following data into /${id}`)
+      console.log(data)
+      db.collection('businesses').update(
+        {
+          _id: ObjectId(id)
+        }, {
+          $set: data
+        }).then((res) => {
+          cb(null, res)
+        }).catch(err => {
+          console.error(err)
+        })
     }
   }
 }

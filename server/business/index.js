@@ -26,9 +26,18 @@ module.exports = function(dataHelpers) {
     })
   })
 
-  businessRoutes.post('/', (req, res) => {
-
+  businessRoutes.put('/:id', (req, res) => {
+    console.log('--- Received PUT to /:id')
+    console.log(req.body.data)
+    dataHelpers.updateBusiness(req.params.id, req.body.data, (err, data) => {
+      if (err) {
+        res.status(500).json({ error: err.message })
+      } else {
+        res.json(data)
+      }
+    })
   })
+
 
   return businessRoutes
 }
