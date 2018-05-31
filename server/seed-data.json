@@ -21,5 +21,63 @@
         "durationMin": 15
       }
     ]
+  },
+  {
+    "name": "Jeffs's Beauty Parlour",
+    "services": [
+      {
+        "billingCode": "1",
+        "description": "Manicure",
+        "priceCents": 5000,
+        "durationMin": 30
+      },
+      {
+        "billingCode": "2",
+        "description": "Pedicure",
+        "priceCents": 5000,
+        "durationMin": 30
+      },
+      {
+        "billingCode": "3",
+        "description": "Eyebrow plucking",
+        "priceCents": 3000,
+        "durationMin": 15
+      },
+      {
+        "billingCode": "4",
+        "description": "Facial hair waxing",
+        "priceCents": 2500,
+        "durationMin": 15
+      }
+    ]
+  },
+  {
+    "name": "Peter's Psychic Readings",
+    "services": [
+      {
+        "billingCode": "1",
+        "description": "Contact the Dead",
+        "priceCents": 7000,
+        "durationMin": 20
+      },
+      {
+        "billingCode": "2",
+        "description": "Crystal Ball reading",
+        "priceCents": 5000,
+        "durationMin": 20
+      },
+      {
+        "billingCode": "3",
+        "description": "Tarot Card reading",
+        "priceCents": 2500,
+        "durationMin": 20
+      },
+      {
+        "billingCode": "4",
+        "description": "Full seance",
+        "priceCents": 10000,
+        "durationMin": 40
+      }
+    ]
   }
 ]

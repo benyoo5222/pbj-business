@@ -12,18 +12,21 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
   console.log(`Connected to mongodb: ${MONGODB_URI}`);
 
   // Delete all existing records
-  db.collection('business').remove({}).then(() => {
+  db.collection('businesses').remove({}).then(() => {
     
     // FIXME: promises return out of order
-    return seedData.forEach(business => {
-      db.collection('business').insertOne(business).then(() => {
-        console.log('Seeding business')
+    return new Promise((res, rej) => {
+      seedData.forEach(business => {
+        db.collection('businesses').insertOne(business).then(() => {
+          console.log('Seeding business')
+        })
       })
+      res()
+    }).then(() => {
+      console.log('Finished seeding')
+      db.close()
     })
     
-  }).then(() => {
-    console.log('Finished seeding')
-    db.close()
   })
   
 })
