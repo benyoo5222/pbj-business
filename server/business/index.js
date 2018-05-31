@@ -16,6 +16,16 @@ module.exports = function(dataHelpers) {
     })
   })
 
+  businessRoutes.get('/:id', (req, res) => {
+    dataHelpers.readBusiness(req.params.id, (err, data) => {
+      if (err) {
+        res.status(500).json({ error: err.message })
+      } else {
+        res.json(data)
+      }
+    })
+  })
+
   businessRoutes.post('/', (req, res) => {
 
   })

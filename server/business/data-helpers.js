@@ -1,4 +1,5 @@
 "use strict";
+const ObjectId = require('mongodb').ObjectId
 
 module.exports = function makeDataHelpers(db) {
   return {
@@ -9,13 +10,14 @@ module.exports = function makeDataHelpers(db) {
     },
 
     readBusiness: function (data, cb) {
-      db.collection('businesses').find().toArray().then((business) => {
+      console.log(data)
+      db.collection('businesses').find({_id: ObjectId(data)}).toArray().then((business) => {
         cb(null, business)
       })
     },
 
     readAllBusinesses: function (cb) {
-      db.collection('businesses').find().toArray().then((data) => {
+      db.collection('businesses').find({}).toArray().then((data) => {
         cb(null, data)
       })
     }

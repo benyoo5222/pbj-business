@@ -1,4 +1,4 @@
-// "use strict";
+"use strict";
 
 // Basic express setup:
 
@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(express.static("public"));
 
 // MongoDB database
-MongoClient.connect(MONGODB_URI, { useNewUrlParser: true }, (err, db) => {
+MongoClient.connect(MONGODB_URI, (err, db) => {
   if (err) {
     console.error(`Failed to connect: ${MONGODB_URI}`);
     throw err;
@@ -37,7 +37,7 @@ MongoClient.connect(MONGODB_URI, { useNewUrlParser: true }, (err, db) => {
 
   // Mount the tweets routes at the "/tweets" path prefix:
   
-  app.use("/business", businessRoutes);
+  app.use("/api/business", businessRoutes);
 
   app.get("/", (req, res) => {
     console.log('Get at "/"')
