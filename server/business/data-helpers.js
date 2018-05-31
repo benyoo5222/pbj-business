@@ -10,7 +10,6 @@ module.exports = function makeDataHelpers(db) {
     },
 
     readBusiness: function (data, cb) {
-      console.log(data)
       db.collection('businesses').find(ObjectId(data)).toArray().then((business) => {
         cb(null, business)
       })
@@ -23,18 +22,49 @@ module.exports = function makeDataHelpers(db) {
     },
 
     updateBusiness: function (id, data, cb) {
-      console.log(`Inserting the following data into /${id}`)
-      console.log(data)
-      db.collection('businesses').update(
-        {
-          _id: ObjectId(id)
-        }, {
-          $set: data
-        }).then((res) => {
-          cb(null, res)
-        }).catch(err => {
-          console.error(err)
-        })
+      db.collection('businesses').update({
+        _id: ObjectId(id)
+      }, {
+        $set: data
+      }).then((res) => {
+        cb(null, res)
+      }).catch(err => {
+        console.error(err)
+      })
+    },
+
+    readServices: function (id, cb) {
+      db.collection('businesses').find(ObjectId(id)).toArray().then((business) => {
+        const services = business[0].services
+        cb(null, services)
+      })
+    },
+
+    updateServices: function (id, data, cb) {
+      db.collection('businesses').update({
+        _id: ObjectId(id)
+      }, {
+        $set: {"services": data}
+      }).then((res) => {
+        cb(null, res)
+      }).catch(err => {
+        console.error(err)
+      })
+    },
+
+    createTransaction: function(id, data, cb) {
+      db.collection('businesses').update({
+        _id: ObjectId(id)
+      }, {
+        $push: {"transactions": {
+          ...data,
+          "timestamp": new Date()
+        }}
+      }).then((res) => {
+        cb(null, res)
+      }).catch(err => {
+        console.error(err)
+      })
     }
   }
 }

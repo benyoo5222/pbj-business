@@ -32,4 +32,25 @@ To update a business, make a `PUT` request to `/api/business/<BUSINESS_ID>`, usi
   }
 }
 ```
+To view a business's services, make a `GET` request to `/:id/services`
+
+To update a business's services, make a `PUT` request to `/:id/services`. You must send the **ENTIRE** updated array, as it will overwrite the original array. Your request body should have the following JSON format:
+```json
+{
+  "data": [
+    {
+      "billingCode": "abc",
+      "description": "Men's hair cut",
+      "priceCents": 2500,
+      "durationMin": 15
+    },
+    {
+      //...
+    }
+  ]
+}
+```
+
+To add a new transaction, make a `POST` to `/:id/transactions`. Timestamp is automatically added.
+
 To add/remove individual services, for now just send a full version of your new `services` array.

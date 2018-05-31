@@ -27,8 +27,6 @@ module.exports = function(dataHelpers) {
   })
 
   businessRoutes.put('/:id', (req, res) => {
-    console.log('--- Received PUT to /:id')
-    console.log(req.body.data)
     dataHelpers.updateBusiness(req.params.id, req.body.data, (err, data) => {
       if (err) {
         res.status(500).json({ error: err.message })
@@ -38,6 +36,35 @@ module.exports = function(dataHelpers) {
     })
   })
 
+  businessRoutes.get('/:id/services', (req, res) => {
+    dataHelpers.readServices(req.params.id, (err, data) => {
+      if (err) {
+        res.status(500).json({ error: err.message })
+      } else {
+        res.json(data)
+      }
+    })
+  })
+
+  businessRoutes.put('/:id/services', (req, res) => {
+    dataHelpers.updateServices(req.params.id, req.body.data, (err, data) => {
+      if (err) {
+        res.status(500).json({ error: err.message })
+      } else {
+        res.json(data)
+      }
+    })
+  })
+
+  businessRoutes.post('/:id/transactions', (req, res) => {
+    dataHelpers.createTransaction(req.params.id, req.body.data, (err, data) => {
+      if (err) {
+        res.status(500).json({ error: err.message })
+      } else {
+        res.json(data)
+      }
+    })
+  })
 
   return businessRoutes
 }
