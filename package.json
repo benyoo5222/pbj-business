@@ -23,7 +23,7 @@
     "seed": "node server/seed-db.js"
   },
   "devDependencies": {
-    "nodemon": "^1.17.5"
+    "nodemon": "^1.17.5",
     "json-loader": "^0.5.7"
   }
 }

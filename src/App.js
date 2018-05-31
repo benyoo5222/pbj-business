@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import Serviceslist from './services-list';
 import data from './services.json';
+import ClippedDrawer from './main-container.js';
 
 class App extends Component {
   render() {
@@ -16,6 +17,7 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
           <Serviceslist data = {data} />
+          <ClippedDrawer />
       </div>
     );
   }
