@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 
-import Serviceslist from './services-list';
+import Serviceslist from './components/Services';
 import Calendar from './components/Calendar';
 
 const drawerWidth = 240;
