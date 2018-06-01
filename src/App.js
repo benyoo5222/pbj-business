@@ -118,9 +118,9 @@ class App extends Component {
 
               <Switch>
                 {/* <Route exact path='/' component={Calendar} /> */}
-                <Route exact path='/' render={() => { return (<div> Welcome to business</div>) }} />
+                <Route exact path='/' render={() => { return (<div> Welcome to {this.state.business.name || 'business'}</div>) }} />
                 <Route path='/calendar' component={Calendar} />
-                <Route path='/services' component={Services} data={this.state.business} />
+                <Route path='/services' render={() => <Services data={this.state.business}/>} />
                 <Route render={() => { return (<div>404! :(</div>) }} />
               </Switch>
 
