@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types';
+import axios from 'axios'
 
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -13,6 +14,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 import Services from './components/Services';
 import Calendar from './components/Calendar';
+
+import { BUSINESS_ID } from './calendar_secrets.json'
 
 import './App.css';
 const drawerWidth = 240;
@@ -41,22 +44,33 @@ const styles = theme => ({
 });
 
 
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      services: []
+      business: {
+        name: '',
+        services: []
+      }
     }
   }
-  getServices = (e) => {
-    fetch("http://localhost:5000/api/business")
-      .then(res => res.json())
-      .then(data => {
-        data.map(eachService => {
-          let newServiceArray = [...this.state.services, eachService];
-          this.setState({ services: newServiceArray })
-        })
+  getBusinessId = () => {
+    // This method would normally get the business ID from login/cookie
+    return BUSINESS_ID
+  }
+  fetchBusinessData = (businessId) => {
+    axios.get(`http://localhost:5000/api/business/${businessId}`)
+      .then(res => {
+        const business = res.data[0]
+        if (!business) throw new Error(`Error fetching data from business ID ${businessId}`)
+        this.setState({business: business})
+      }).catch(err => {
+        console.error(err)
       })
+  }
+  componentDidMount() {
+    this.fetchBusinessData(this.getBusinessId())
   }
   render() {
     const { classes } = this.props;
@@ -67,7 +81,7 @@ class App extends Component {
             <AppBar position="absolute" className={classes.appBar}>
               <Toolbar>
                 <Typography variant="title" color="inherit" noWrap>
-                  PBJ Scheduler
+                  {this.state.business.name || 'PBJ Scheduler'}
                 </Typography>
               </Toolbar>
             </AppBar>
@@ -106,7 +120,7 @@ class App extends Component {
                 {/* <Route exact path='/' component={Calendar} /> */}
                 <Route exact path='/' render={() => { return (<div> Welcome to business</div>) }} />
                 <Route path='/calendar' component={Calendar} />
-                <Route path='/services' component={Services} data={this.state} />
+                <Route path='/services' component={Services} data={this.state.business} />
                 <Route render={() => { return (<div>404! :(</div>) }} />
               </Switch>
 
