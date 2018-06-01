@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Route, Switch, Link } from 'react-router-dom'
+
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -9,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 
-import Serviceslist from './components/Services';
+import Services from './components/Services';
 import Calendar from './components/Calendar';
 
 const drawerWidth = 240;
@@ -87,12 +89,20 @@ class ClippedDrawer extends React.Component {
             <List>Notification</List>
             <Divider />
             <List>Report</List>
+
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Calendar/>
-          <Typography noWrap>{'You think water moves fast? You should see ice.'}</Typography>
-          <Serviceslist data= {this.state} />
+
+          <Switch>
+            <Route exact path='/' component={Calendar} />
+            <Route path='/calendar' component={Calendar} />
+            <Route path='/services' component={Services} data={this.state} />
+            <Route render={() => { return (<div>404! 🙃</div>)}}/>
+          </Switch>
+
+
+          <Services data= {this.state} />
         </main>
       </div>
     );
