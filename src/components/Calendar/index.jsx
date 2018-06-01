@@ -6,6 +6,10 @@ BigCalendar.momentLocalizer(moment)
 
 require('react-big-calendar/lib/css/react-big-calendar.css')
 
+const calendarStyle = {
+  height: '500px'
+}
+
 class Calendar extends Component {
   constructor(props) {
     super(props);
@@ -22,8 +26,14 @@ class Calendar extends Component {
     return (
       <div>
         <BigCalendar 
-          style={{height: '420px'}}
-          events={this.state.events} />
+          style={calendarStyle}
+          events={this.state.events}
+          defaultDate={new Date()}
+          defaultView='week'
+          drilldownView="agenda"
+
+          scrollToTime={new Date()}
+          />
       </div>
      )
   }
