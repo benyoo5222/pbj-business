@@ -7,7 +7,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
 
+import Serviceslist from './services-list';
 
 const drawerWidth = 240;
 
@@ -36,35 +38,51 @@ const styles = theme => ({
   toolbar: theme.mixins.toolbar,
 });
 
-function ClippedDrawer(props) {
-  const { classes } = props;
+class ClippedDrawer extends React.Component {
 
-  return (
-    <div className={classes.root}>
-      <AppBar position="absolute" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="title" color="inherit" noWrap>
-            PBJ Scheduler
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <div className={classes.toolbar} />
-        <List>Ben</List>
-        <Divider />
-        <List>Blah</List>
-      </Drawer>
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-        <Typography noWrap>{'You think water moves fast? You should see ice.'}</Typography>
-      </main>
-    </div>
-  );
+  getServices = (e) => {
+    console.log(e.target);
+
+    fetch("http://localhost:5000/api/business")
+      .then(res => console.log(res))
+  }
+
+  render() {
+    const { classes } = this.props;
+
+    return (
+      <div className={classes.root}>
+        <AppBar position="absolute" className={classes.appBar}>
+          <Toolbar>
+            <Typography variant="title" color="inherit" noWrap>
+              PBJ Scheduler
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          variant="permanent"
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+        >
+          <div className={classes.toolbar} />
+
+            <List>Schedule</List>
+            <List onClick = {this.getServices}>Services</List>
+            <List>Hours</List>
+            <List>Notification</List>
+            <Divider />
+            <List>Report</List>
+        </Drawer>
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
+          <Typography noWrap>{'You think water moves fast? You should see ice.'}</Typography>
+          <Serviceslist data= {this.props.data} />
+        </main>
+      </div>
+    );
+  }
+
 }
 
 ClippedDrawer.propTypes = {
