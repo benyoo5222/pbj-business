@@ -39,12 +39,25 @@ const styles = theme => ({
 });
 
 class ClippedDrawer extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      services: []
+    }
+  }
 
   getServices = (e) => {
     console.log(e.target);
 
     fetch("http://localhost:5000/api/business")
-      .then(res => console.log(res))
+      .then(res => res.json())
+      .then(data => {
+        data.map( eachService => {
+          let newServiceArray = [...this.state.services, eachService];
+          this.setState({services: newServiceArray})
+        })
+      })
   }
 
   render() {
@@ -77,7 +90,7 @@ class ClippedDrawer extends React.Component {
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <Typography noWrap>{'You think water moves fast? You should see ice.'}</Typography>
-          <Serviceslist data= {this.props.data} />
+          <Serviceslist data= {this.state} />
         </main>
       </div>
     );
