@@ -1,5 +1,8 @@
-[
+const ObjectId = require('mongodb').ObjectId
+
+module.exports = [
   {
+    "_id": ObjectId("123456123456123456123456"),
     "name": "Ben's Hair salon",
     "calendarId": "fn8tokeshkjgra785ffa0u717c@group.calendar.google.com",
     "services": [
@@ -24,6 +27,7 @@
     ]
   },
   {
+    "_id": ObjectId("567890567890567890567890"),
     "name": "Jeffs's Beauty Parlour",
     "services": [
       {
@@ -53,6 +57,7 @@
     ]
   },
   {
+    "_id": ObjectId("abcdefabcdefabcdefabcdef"),
     "name": "Peter's Psychic Readings",
     "services": [
       {

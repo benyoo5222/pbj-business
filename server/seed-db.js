@@ -2,7 +2,7 @@
 require('dotenv').config();
 const { MongoClient } = require('mongodb');
 const MONGODB_URI = process.env.MONGODB_URI; 
-const seedData = require('./seed-data.json')
+const seedData = require('./seed-data.js')
 
 MongoClient.connect(MONGODB_URI, (err, db) => {
   if (err) {
