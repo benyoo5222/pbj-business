@@ -10,6 +10,7 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 
 import Serviceslist from './services-list';
+import Calendar from './components/Calendar';
 
 const drawerWidth = 240;
 
@@ -76,6 +77,7 @@ class ClippedDrawer extends React.Component {
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
+          <Calendar/>
           <Typography noWrap>{'You think water moves fast? You should see ice.'}</Typography>
           <Serviceslist data= {this.props.data} />
         </main>
