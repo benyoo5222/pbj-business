@@ -9,24 +9,29 @@ import EditIcon from '@material-ui/icons/Edit';
 
 class Services extends Component {
 
-  clickEvent = (e) => {
-    console.log(e);
+  editService = (e) => {
+    console.log(e.target)
   }
 
   render () {
     return (
       <List>
-        {this.props.data.map(value =>
-          <ListItem >
-            <ListItemText primary= {`${value.name} ${value.duration} ${value.price}`} onClick ={this.clickEvent} />
+        {this.props.data.services.map(value => {
+         if (value.name === "Peter's Psychic Readings") {
+          return value.services.map(eachService =>
+            <ListItem >
+              <ListItemText primary= {`${eachService.description} ${eachService.durationMin} ${eachService.priceCents}`} />
 
-            <ListItemSecondaryAction>
-              <IconButton aria-label="Comments">
-                <EditIcon />
-              </IconButton>
-            </ListItemSecondaryAction>
-          </ListItem>
-        )}
+              <ListItemSecondaryAction>
+                <IconButton aria-label="Comments">
+                  <EditIcon onClick = {this.editService} value = {eachService.billingCode}/>
+                </IconButton>
+              </ListItemSecondaryAction>
+            </ListItem>
+          )
+         }
+        }
+      )}
       </List>
     )
   }
