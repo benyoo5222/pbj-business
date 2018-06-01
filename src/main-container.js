@@ -53,6 +53,7 @@ class ClippedDrawer extends React.Component {
     fetch("http://localhost:5000/api/business")
       .then(res => res.json())
       .then(data => {
+        console.log(data);
         data.map( eachService => {
           let newServiceArray = [...this.state.services, eachService];
           this.setState({services: newServiceArray})

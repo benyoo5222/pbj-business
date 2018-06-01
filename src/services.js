@@ -9,8 +9,8 @@ import EditIcon from '@material-ui/icons/Edit';
 
 class Services extends Component {
 
-  clickEvent = (e) => {
-    console.log(e);
+  editService = (e) => {
+    console.log(e.target)
   }
 
   render () {
@@ -24,7 +24,7 @@ class Services extends Component {
 
               <ListItemSecondaryAction>
                 <IconButton aria-label="Comments">
-                  <EditIcon />
+                  <EditIcon onClick = {this.editService} value = {eachService.billingCode}/>
                 </IconButton>
               </ListItemSecondaryAction>
             </ListItem>
