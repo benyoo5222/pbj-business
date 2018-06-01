@@ -9,7 +9,6 @@ export function getEvents() {
   return axios.get(url)
     .then(res => {
       let events = []
-      console.log(res)
       events = res.data.items.map(event => {
         return {
           start: event.start.date || new Date(event.start.dateTime),

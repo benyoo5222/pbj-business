@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Route, Switch, Link } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -8,8 +8,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
 import Services from './components/Services';
 import Calendar from './components/Calendar';
@@ -50,12 +50,9 @@ class ClippedDrawer extends React.Component {
   }
 
   getServices = (e) => {
-    console.log(e.target);
-
     fetch("http://localhost:5000/api/business")
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         data.map( eachService => {
           let newServiceArray = [...this.state.services, eachService];
           this.setState({services: newServiceArray})
@@ -83,19 +80,31 @@ class ClippedDrawer extends React.Component {
         >
           <div className={classes.toolbar} />
 
-            <List>Schedule</List>
-            <List onClick = {this.getServices}>Services</List>
-            <List>Hours</List>
-            <List>Notification</List>
-            <Divider />
-            <List>Report</List>
+            <List>
+              <ListItem button component="a" href="/calendar">
+                <ListItemText primary="Calendar"></ListItemText>
+              </ListItem>
+              <ListItem button component="a" href="/services">
+                <ListItemText primary="Services"></ListItemText>
+              </ListItem>
+              <ListItem button component="a" href="/hours">
+                <ListItemText primary="Hours"></ListItemText>
+              </ListItem>
+              <ListItem button component="a" href="/notifications">
+                <ListItemText primary="Notifications"></ListItemText>
+              </ListItem>
+              <ListItem button component="a" href="/reports">
+                <ListItemText primary="Reports"></ListItemText>
+              </ListItem>
+            </List>
 
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
 
           <Switch>
-            <Route exact path='/' component={Calendar} />
+            {/* <Route exact path='/' component={Calendar} /> */}
+            <Route exact path='/' render={() => { return (<div> Welcome to business 💇 </div>)}}/>
             <Route path='/calendar' component={Calendar} />
             <Route path='/services' component={Services} data={this.state} />
             <Route render={() => { return (<div>404! 🙃</div>)}}/>
