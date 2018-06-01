@@ -8,12 +8,17 @@ import AddBox from "@material-ui/icons/AddBox"
 import EditIcon from '@material-ui/icons/Edit';
 
 class Services extends Component {
+
+  clickEvent = (e) => {
+    console.log(e);
+  }
+
   render () {
     return (
       <List>
         {this.props.data.map(value =>
           <ListItem >
-            <ListItemText primary= {`${value.name} ${value.duration} ${value.price}`} />
+            <ListItemText primary= {`${value.name} ${value.duration} ${value.price}`} onClick ={this.clickEvent} />
 
             <ListItemSecondaryAction>
               <IconButton aria-label="Comments">
