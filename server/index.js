@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 5000;
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
+const cors = require('cors');
 
 const { MongoClient } = require('mongodb');
 const MONGODB_URI = process.env.MONGODB_URI; 
@@ -38,7 +39,7 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
 
   // Mount the tweets routes at the "/tweets" path prefix:
   
-  app.use("/api/business", businessRoutes);
+  app.use("/api/business", cors(), businessRoutes);
 
   app.get("/", (req, res) => {
     console.log('Get at "/"')
