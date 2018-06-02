@@ -6,6 +6,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
 import AddBox from "@material-ui/icons/AddBox"
 import EditIcon from '@material-ui/icons/Edit';
+import axios from 'axios'
 
 class Services extends Component {
 
@@ -26,19 +27,15 @@ class Services extends Component {
       return a.billingCode - b.billingCode;
     })
 
-    fetch(`http://localhost:5000/api/business/${this.props.data["_id"]}/services`,
-      {
-        method: 'PUT',
-        body: newestarray
-      })
-      .then(res => res.json())
-      .then(data => console.log(data))
+    axios.put(`http://localhost:5000/api/business/${this.props.data["_id"]}/services`,
+      {data: newestarray})
+      .then(res => console.log(res))
   }
 
   render () {
     return (
       <List>
-        {this.props.data.name === "Peter's Psychic Readings" &&
+        {this.props.data.name === "Ben's Hair salon" &&
           this.props.data.services.map(eachService =>
             <ListItem >
               <ListItemText primary= {`${eachService.description} ${eachService.durationMin} ${eachService.priceCents}`} />

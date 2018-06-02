@@ -37,7 +37,7 @@ module.exports = function(dataHelpers) {
       returnJson(res, err, data)
     })
   })
-  
+
   businessRoutes.put('/:id/services', (req, res) => {
     dataHelpers.updateServices(req.params.id, req.body.data, (err, data) => {
       returnJson(res, err, data)
