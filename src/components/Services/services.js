@@ -8,12 +8,18 @@ import AddBox from "@material-ui/icons/AddBox"
 import EditIcon from '@material-ui/icons/Edit';
 import axios from 'axios'
 
+import EditForm from './editserviceform.js'
+
 class Services extends Component {
 
-  editService = (serviceId) => {
-    console.log(serviceId)
-    console.log(this.props.data)
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false
+    }
+  }
 
+  editService = (serviceId) => {
     const array = this.props.data.services.filter( value => value.billingCode !== serviceId)
     const editedService =
       {
@@ -29,7 +35,18 @@ class Services extends Component {
 
     axios.put(`http://localhost:5000/api/business/${this.props.data["_id"]}/services`,
       {data: newestarray})
-      .then(res => console.log(res))
+      .then(res => this.props.updateService(newestarray))
+      .catch(err => {
+        console.error(err)
+      })
+  }
+
+  handleOpen = () => {
+    this.setState({open: true})
+  }
+
+  handleClose = (close) => {
+    this.setState({open:close})
   }
 
   render () {
@@ -42,7 +59,8 @@ class Services extends Component {
 
               <ListItemSecondaryAction>
                 <IconButton aria-label="Comments">
-                  <EditIcon onClick = {this.editService.bind(this, eachService.billingCode)}/>
+                  <EditIcon onClick={this.handleOpen}/>
+                  <EditForm open={this.state.open} close={this.handleClose} info={eachService}/>
                 </IconButton>
               </ListItemSecondaryAction>
             </ListItem>

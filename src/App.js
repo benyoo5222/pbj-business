@@ -69,6 +69,10 @@ class App extends Component {
         console.error(err)
       })
   }
+  updatedService = (updatedService) => {
+    const newState = {...this.state.business, services: updatedService}
+    this.setState({business: newState})
+  }
   componentDidMount() {
     this.fetchBusinessData(this.getBusinessId())
   }
@@ -120,7 +124,7 @@ class App extends Component {
                 {/* <Route exact path='/' component={Calendar} /> */}
                 <Route exact path='/' render={() => { return (<div> Welcome to {this.state.business.name || 'business'}</div>) }} />
                 <Route path='/calendar' component={Calendar} />
-                <Route path='/services' render={() => <Services data={this.state}/>} />
+                <Route path='/services' render={() => <Services data={this.state} updateService={this.updatedService}/>} />
                 <Route render={() => { return (<div>404! :(</div>) }} />
               </Switch>
 
