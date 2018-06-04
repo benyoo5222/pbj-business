@@ -14,6 +14,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 import Services from './components/Services';
 import Calendar from './components/Calendar';
+import Hours from './components/Hours';
 
 import { BUSINESS_ID } from './calendar_secrets.json'
 
@@ -181,6 +182,7 @@ fetchBusinessData = (businessId) => {
                 <Route exact path='/' render={() => { return (<div> Welcome to {this.state.business.name || 'business'}</div>) }} />
                 <Route path='/calendar' component={Calendar} />
                 <Route path='/services' render={() => <Services data={this.state} updateService={this.updatedService}/>} />
+                <Route path='/hours' component={Hours} />
                 <Route render={() => { return (<div>404! :(</div>) }} />
               </Switch>
 
