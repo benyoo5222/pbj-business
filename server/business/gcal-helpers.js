@@ -23,20 +23,29 @@ jwtClient.authorize((err, tokens) => {
   }
 })
 const calendar = google.calendar('v3')
-calendar.events.list({
-  auth: jwtClient,
-  calendarId: CALENDAR_ID
-}, (err, res) => {
-  if (err) {
-    console.log('The API returned an error: ' + err)
-    return
-  }
-  const events = res.data.items
-  console.log(events)
+// calendar.events.list({
+//   auth: jwtClient,
+//   calendarId: CALENDAR_ID
+// }, (err, res) => {
+//   if (err) {
+//     console.log('The API returned an error: ' + err)
+//     return
+//   }
+//   const events = res.data.items
+//   console.log(events)
   
-})
+// })
 
 module.exports = {
+  getCalendarEvents: function(id) {
+    return calendar.events.list({
+      auth: jwtClient,
+      calendarId: CALENDAR_ID
+    }).then(res => {
+      return res.data.items
+    })
+  },
+  
   newCalendarEvent: function (id, data) {
 
     console.log(SERVICE_ACCOUNT)

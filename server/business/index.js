@@ -50,5 +50,17 @@ module.exports = function(dataHelpers) {
     })
   })
 
+  businessRoutes.get('/:id/appointments', (req, res) => {
+    dataHelpers.getCalendarEvents(req.params.id, (err, data) => {
+      returnJson(res, err, data)
+    })
+  })
+
+  businessRoutes.post('/:id/appointment', (req, res) => {
+    dataHelpers.createCalendarEvent(req.params.id, req.body.data, (err, data) => {
+      returnJson(res, err, data)
+    })
+  })
+
   return businessRoutes
 }
