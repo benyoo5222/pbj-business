@@ -11,7 +11,7 @@ const returnJson = function(res, err, data) {
   }
 }
 
-module.exports = function(dataHelpers) {
+module.exports = function(dataHelpers, calendarHelpers) {
 
   businessRoutes.get('/', (req, res) => {
     // res.json({ message: "get '/' from businessRoutes" })
@@ -46,6 +46,18 @@ module.exports = function(dataHelpers) {
 
   businessRoutes.post('/:id/transactions', (req, res) => {
     dataHelpers.createTransaction(req.params.id, req.body.data, (err, data) => {
+      returnJson(res, err, data)
+    })
+  })
+
+  businessRoutes.get('/:id/appointments', (req, res) => {
+    dataHelpers.getCalendarEvents(req.params.id, (err, data) => {
+      returnJson(res, err, data)
+    })
+  })
+
+  businessRoutes.post('/:id/appointment', (req, res) => {
+    dataHelpers.createCalendarEvent(req.params.id, req.body.data, (err, data) => {
       returnJson(res, err, data)
     })
   })
