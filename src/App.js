@@ -18,6 +18,7 @@ import Calendar from './components/Calendar';
 import { BUSINESS_ID } from './calendar_secrets.json'
 
 import './App.css';
+//----------------Material CSS------------------------
 const drawerWidth = 240;
 const styles = theme => ({
   root: {
@@ -47,7 +48,7 @@ const noUnderline = {
   textDecoration: 'none'
 }
 
-
+//-----------------State------------------------
 
 class App extends Component {
   constructor(props) {
@@ -59,11 +60,39 @@ class App extends Component {
       }
     }
   }
-  getBusinessId = () => {
-    // This method would normally get the business ID from login/cookie
-    return BUSINESS_ID
+
+//---------------Life Cycle Functions--------------
+componentDidMount() {
+    this.fetchBusinessData(this.getBusinessId());
   }
-  fetchBusinessData = (businessId) => {
+
+//---------------Handle Functions-----------------
+
+handleBusinessInput = (businessPackage) => {
+  switch (businessPackage.packageType){
+    case 'service':
+      this.handleBusinessService(businessPackage);
+      break;
+    case 'hours':
+      this.handleBusinesssHours(businessPackage);
+      break;
+    default:
+      console.log("somebody did something wrong");
+  }
+}
+
+handleBusinessService = (businessPackage) => {
+  console.log(businessPackage);
+}
+
+handleBusinesssHours = (businessPackage) => {
+  console.log(businessPackage);
+}
+
+
+//--------------Fetch Functions-------------------
+
+fetchBusinessData = (businessId) => {
     axios.get(`http://localhost:5000/api/business/${businessId}`)
       .then(res => {
         const business = res.data[0]
@@ -73,13 +102,22 @@ class App extends Component {
         console.error(err)
       })
   }
+
+//--------------Business Functions----------------
+
+  getBusinessId = () => {
+    // This method would normally get the business ID from login/cookie
+    return BUSINESS_ID
+  }
+
+//--------------Service Functions-----------------
+
   updatedService = (updatedService) => {
     const newState = {...this.state.business, services: updatedService}
     this.setState({business: newState})
   }
-  componentDidMount() {
-    this.fetchBusinessData(this.getBusinessId())
-  }
+
+//---------------This renders the User Panel------------------------
   render() {
     const { classes } = this.props;
     return (
@@ -107,19 +145,19 @@ class App extends Component {
                     <ListItemText primary="Calendar"></ListItemText>
                   </ListItem>
                 </Link>
-                
+
                 <Link to="/services" style={noUnderline}>
                   <ListItem button>
                     <ListItemText primary="Services"></ListItemText>
                   </ListItem>
                 </Link>
-                
+
                 <Link to="/hours" style={noUnderline}>
                   <ListItem button>
                     <ListItemText primary="Hours"></ListItemText>
                   </ListItem>
                 </Link>
-                
+
                 <Link to="/notifications" style={noUnderline}>
                   <ListItem button>
                     <ListItemText primary="Notifications"></ListItemText>
