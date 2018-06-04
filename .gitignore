@@ -23,3 +23,5 @@ yarn-error.log*
 .env
 
 /src/calendar_secrets.json
+/server/calendar_secrets.json
+/server/service_account_secrets.json
