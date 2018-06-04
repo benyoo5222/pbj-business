@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Route, Switch, Link } from 'react-router-dom'
 import PropTypes from 'prop-types';
 import axios from 'axios'
 
@@ -42,6 +42,10 @@ const styles = theme => ({
   },
   toolbar: theme.mixins.toolbar,
 });
+
+const noUnderline = {
+  textDecoration: 'none'
+}
 
 
 
@@ -98,21 +102,35 @@ class App extends Component {
             >
               <div className={classes.toolbar} />
               <List>
-                <ListItem button component="a" href="/calendar">
-                  <ListItemText primary="Calendar"></ListItemText>
-                </ListItem>
-                <ListItem button component="a" href="/services">
-                  <ListItemText primary="Services"></ListItemText>
-                </ListItem>
-                <ListItem button component="a" href="/hours">
-                  <ListItemText primary="Hours"></ListItemText>
-                </ListItem>
-                <ListItem button component="a" href="/notifications">
-                  <ListItemText primary="Notifications"></ListItemText>
-                </ListItem>
-                <ListItem button component="a" href="/reports">
-                  <ListItemText primary="Reports"></ListItemText>
-                </ListItem>
+                <Link to="/calendar" style={noUnderline}>
+                  <ListItem button>
+                    <ListItemText primary="Calendar"></ListItemText>
+                  </ListItem>
+                </Link>
+                
+                <Link to="/services" style={noUnderline}>
+                  <ListItem button>
+                    <ListItemText primary="Services"></ListItemText>
+                  </ListItem>
+                </Link>
+                
+                <Link to="/hours" style={noUnderline}>
+                  <ListItem button>
+                    <ListItemText primary="Hours"></ListItemText>
+                  </ListItem>
+                </Link>
+                
+                <Link to="/notifications" style={noUnderline}>
+                  <ListItem button>
+                    <ListItemText primary="Notifications"></ListItemText>
+                  </ListItem>
+                </Link>
+
+                <Link to="/reports" style={noUnderline}>
+                  <ListItem button>
+                    <ListItemText primary="Reports"></ListItemText>
+                  </ListItem>
+                </Link>
               </List>
 
             </Drawer>
