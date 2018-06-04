@@ -1,8 +1,8 @@
 "use strict";
 const ObjectId = require('mongodb').ObjectId
-const gCalHelpers = require('./gcal-helpers.js')
+// const gCalHelpers = require('./gcal-helpers.js')
 
-module.exports = function makeDataHelpers(db) {
+module.exports = function makeDataHelpers(db, calendarHelpers) {
   return {
     createBusiness: function (data, cb) {
       db.collection('businesses').insertOne(data).then(() => {
@@ -71,7 +71,7 @@ module.exports = function makeDataHelpers(db) {
     getCalendarEvents: function(id, cb) {
       db.collection('businesses').find(ObjectId(id)).toArray().then((business) => {
         const calendarId = business[0].calendarId
-        return gCalHelpers.getCalendarEvents(calendarId)
+        return calendarHelpers.getCalendarEvents(calendarId)
       }).then(res => {
         cb(null, res)
       }).catch(err => {
@@ -80,7 +80,7 @@ module.exports = function makeDataHelpers(db) {
     },
     
     createCalendarEvent: function(id, data, cb) {
-      gCalHelpers.newCalendarEvent(id, data)
+      calendarHelpers.newCalendarEvent(id, data)
       cb(null, 'done')
     }
   }
