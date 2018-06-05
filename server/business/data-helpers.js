@@ -83,16 +83,16 @@ module.exports = function makeDataHelpers(db, calendarHelpers) {
       db.collection('businesses').find(ObjectId(id)).toArray().then((businesses) => {
         const business = businesses[0]
         // TODO: Get customer data here
-        const customer = { name: 'Jeff Lee', email: 'jjlee16@gmail.com', phone: '647-555-1111' }
+        const customer = { name: 'Jeff Lee', email: null, phone: '647-555-1111' }
 
         const event = {
           summary: data.name || 'No event name',
           start: { dateTime: data.start },
           end: { dateTime: data.end },
           description: `${data.name} for ${customer.name} (${customer.phone || 'No phone number'})`,
-          attendees: [{
-            'email': customer.email || ''
-          }],
+          // attendees: [{
+          //   'email': customer.email || ''
+          // }],
           location: business.address || ''
         }
 
