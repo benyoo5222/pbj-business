@@ -4,6 +4,8 @@ module.exports = [
   {
     "_id": ObjectId("123456123456123456123456"),
     "name": "Ben's Hair salon",
+    "address": "46 Spadina Ave, Toronto, ON M5V 2H8",
+    "phone": "416-555-1234",
     "calendarId": "fn8tokeshkjgra785ffa0u717c@group.calendar.google.com",
     "services": [
       {

@@ -10,9 +10,15 @@ module.exports = function(calendar, jwtClient) {
       })
     },
     
-    newCalendarEvent: function (id, data) {
+    insertCalendarEvent: function (calendarId, event) {
 
-      console.log(SERVICE_ACCOUNT)
+      return calendar.events.insert({
+        auth: jwtClient,
+        calendarId: calendarId,
+        resource: event
+      }).then(res => {
+        return res.data
+      })
     }
   }
 }
