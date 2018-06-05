@@ -57,14 +57,23 @@ class App extends Component {
     this.state = {
       business: {
         name: '',
-        services: []
+        services: [],
+        hours: [
+          {day: "Monday", opening: "09:00", closing: "09:00"},
+          {day: "Tuesday", opening: "09:00", closing: "09:00"},
+          {day: "Wednesday", opening: "09:00", closing: "09:00"},
+          {day: "Thursday", opening: "09:00", closing: "09:00"},
+          {day: "Friday", opening: "09:00", closing: "09:00"},
+          {day: "Saturday", opening: "09:00", closing: "09:00"},
+          {day: "Sunday", opening: "09:00", closing: "09:00"}
+        ]
       }
     }
   }
 
 //---------------Life Cycle Functions--------------
 componentDidMount() {
-    this.fetchBusinessData(this.getBusinessId());
+    //this.fetchBusinessData(this.getBusinessId());
   }
 
 //---------------Handle Functions-----------------
@@ -182,7 +191,12 @@ fetchBusinessData = (businessId) => {
                 <Route exact path='/' render={() => { return (<div> Welcome to {this.state.business.name || 'business'}</div>) }} />
                 <Route path='/calendar' component={Calendar} />
                 <Route path='/services' render={() => <Services data={this.state} updateService={this.updatedService}/>} />
-                <Route path='/hours' component={Hours} />
+                <Route path='/hours' render={() =>
+                  <Hours
+                    businessHours={this.state.business.hours}
+                    handleBusinessInput={this.handleBusinessInput}
+                  />}
+                />
                 <Route render={() => { return (<div>404! :(</div>) }} />
               </Switch>
 
