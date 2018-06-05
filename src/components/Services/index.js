@@ -35,6 +35,7 @@ class Serviceslist extends Component {
       open: false,
       currentServices: [],
       editServices: {
+        type: "",
         billingCode: "",
         description: "",
         priceCents: 0,
@@ -43,33 +44,44 @@ class Serviceslist extends Component {
     }
   }
   openForm = (open, value) => {
-    if (typeof value === Number) {
+    if (value === "Add Service") {
+      const type = {...this.state.editServices, type: "Add"};
+      this.setState({open: open, editServices: type})
+    } else {
       const currentServices = this.props.data.business.services.filter(service => service.billingCode === value)
-      this.setState({open: open, currentServices: currentServices})
-    } else if (value === "Add") {
-      this.setState({open: open})
+      const type = {...this.state.editServices, type: "Edit"};
+      this.setState({open: open, currentServices: currentServices, editServices: type})
     }
-
   }
   closeForm = (e) => {
     this.setState({open: false})
   }
-  handleChange = (serviceId, event) => {
+  handleChange = (event) => {
     const {name, value} = event.target;
-    const editedService = {...this.state.editServices, type: "edit", [name]: value, billingCode: serviceId[0]}
-    this.setState({editServices: editedService})
+    const billingCode = this.state.currentServices.map(serviceId => serviceId.billingCode)
+    if (this.state.editServices.type === "Add") {
+      const newBillingCode = this.props.data.business.services.length;
+      const editedService = {...this.state.editServices, [name]: value, billingCode: newBillingCode + 1}
+      this.setState({editServices: editedService})
+    } else {
+      const editedService = {...this.state.editServices, [name]: value, billingCode: billingCode[0]}
+      this.setState({editServices: editedService})
+    }
+
   }
   sendEdit = () => {
     // Need to make sure that it doens't edit if no fields were entered.
-    const array = this.props.data.business.services.filter( value => value.billingCode !== this.state.editServices.billingCode)
-    const newestarray = [...array, this.state.editServices]
-    newestarray.sort(function(a, b) {
-      return a.billingCode - b.billingCode;
-    })
+      const filteredService = this.props.data.business.services.filter( value => value.billingCode !== this.state.editServices.billingCode)
+      const changingServices = [...filteredService, this.state.editServices]
+      changingServices.sort(function(a, b) {
+        return a.billingCode - b.billingCode;
+      })
+      console.log(changingServices)
+
     axios.put(`http://localhost:5000/api/business/123456123456123456123456/services`,
-      {data: newestarray})
+      {data: changingServices})
       .then(res => {
-        const settingState = [this.state.editServices];
+        console.log(res);
         this.setState({open: false})
       })
       .catch(err => {
@@ -91,7 +103,7 @@ class Serviceslist extends Component {
             disableEscapeKeyDown
             open={this.state.open}
           >
-            <DialogTitle>{this.state.currentServices.length > 0 ? this.state.currentServices.map(info => info.description) : "Add a service"}</DialogTitle>
+            <DialogTitle>{this.state.currentServices.length > 0 ? this.state.currentServices.map(service => service.description) : "Add a service"}</DialogTitle>
             <DialogContent>
               <form className={classes.container}>
                 <FormControl className={classes.formControl}>
@@ -99,8 +111,8 @@ class Serviceslist extends Component {
                   <Input
                     id="name-simple"
                     name="description"
-                    placeholder= {this.state.currentServices.map(info => info.description)}
-                    onBlur={this.handleChange.bind(this, this.state.currentServices.map(info => info.billingCode))}/>
+                    placeholder= {this.state.currentServices.map(service => service.description)}
+                    onBlur={this.handleChange}/>
                 </FormControl>
                 <FormControl className={classes.formControl}>
                   <TextField
@@ -108,8 +120,8 @@ class Serviceslist extends Component {
                     id="time"
                     label="Max Time"
                     type="number"
-                    onBlur={this.handleChange.bind(this, this.state.currentServices.map(info => info.billingCode))}
-                    placeholder={this.state.currentServices.map(info => info.durationMin)}
+                    onBlur={this.handleChange}
+                    placeholder={this.state.currentServices.map(service => service.durationMin)}
                     className={classes.textField}
                     inputProps={{
                       step: 5, // 5 min
@@ -121,8 +133,8 @@ class Serviceslist extends Component {
                     name= "priceCents"
                     label="Price"
                     type="number"
-                    onBlur={this.handleChange.bind(this, this.state.currentServices.map(info => info.billingCode))}
-                    placeholder={this.state.currentServices.map(info => info.priceCents)}
+                    onBlur={this.handleChange}
+                    placeholder={this.state.currentServices.map(service => service.priceCents)}
                     id="formatted-numberformat-input"
                   />
                 </FormControl>

@@ -14,8 +14,8 @@ import EditForm from './editserviceform.js'
 
 class Services extends Component {
 
-  handleOpen = (value) => {
-    this.props.openForm(true, value)
+  handleOpen = (serviceDetail) => {
+    this.props.openForm(true, serviceDetail)
   }
 
   render () {
@@ -32,16 +32,9 @@ class Services extends Component {
               </ListItemSecondaryAction>
             </ListItem>
       )}
-          <Button
-            variant="fab"
-            color="primary"
-            aria-label="add"
-            name = "add"
-            value = "add"
-            onClick={this.handleOpen.bind(this, "Add")}
-          >
-            <AddIcon  name ="add"/>
-          </Button>
+        <Button variant="outlined" color="primary" onClick={this.handleOpen.bind(this, "Add Service")}>
+          Add Service
+        </Button>
       </List>
     )
   }
