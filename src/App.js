@@ -14,6 +14,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 import Services from './components/Services';
 import Calendar from './components/Calendar';
+import Hours from './components/Hours';
 
 import { BUSINESS_ID } from './calendar_secrets.json'
 
@@ -56,14 +57,23 @@ class App extends Component {
     this.state = {
       business: {
         name: '',
-        services: []
+        services: [],
+        hours: [
+          {day: "Monday", opening: "09:00", closing: "09:00"},
+          {day: "Tuesday", opening: "09:00", closing: "09:00"},
+          {day: "Wednesday", opening: "09:00", closing: "09:00"},
+          {day: "Thursday", opening: "09:00", closing: "09:00"},
+          {day: "Friday", opening: "09:00", closing: "09:00"},
+          {day: "Saturday", opening: "09:00", closing: "09:00"},
+          {day: "Sunday", opening: "09:00", closing: "09:00"}
+        ]
       }
     }
   }
 
 //---------------Life Cycle Functions--------------
 componentDidMount() {
-    this.fetchBusinessData(this.getBusinessId());
+    //this.fetchBusinessData(this.getBusinessId());
   }
 
 //---------------Handle Functions-----------------
@@ -86,7 +96,7 @@ handleBusinessService = (businessPackage) => {
 }
 
 handleBusinesssHours = (businessPackage) => {
-  console.log(businessPackage);
+  this.setHoursState(businessPackage.hoursInfo);
 }
 
 
@@ -116,6 +126,19 @@ fetchBusinessData = (businessId) => {
     const newState = {...this.state.business, services: updatedService}
     this.setState({business: newState})
   }
+
+//--------------Hours Functions-------------------
+
+setHoursState = (newHours) => {
+  const newHoursState = [];
+  newHoursState.push(this.state.business.hours.map((hour) => {
+    if(hour.day === newHours.day)
+      return newHours;
+    else
+      return hour;
+  }));
+  this.setState({hours: newHoursState})
+}
 
 //---------------This renders the User Panel------------------------
   render() {
@@ -181,6 +204,12 @@ fetchBusinessData = (businessId) => {
                 <Route exact path='/' render={() => { return (<div> Welcome to {this.state.business.name || 'business'}</div>) }} />
                 <Route path='/calendar' component={Calendar} />
                 <Route path='/services' render={() => <Services data={this.state} updateService={this.updatedService}/>} />
+                <Route path='/hours' render={() =>
+                  <Hours
+                    businessHours={this.state.business.hours}
+                    handleBusinessInput={this.handleBusinessInput}
+                  />}
+                />
                 <Route render={() => { return (<div>404! :(</div>) }} />
               </Switch>
 
