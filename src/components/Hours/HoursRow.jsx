@@ -1,4 +1,4 @@
-import React, { Componet } from 'react';
+import React, { Component } from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import TextField from '@material-ui/core/TextField';
@@ -7,7 +7,7 @@ import TextField from '@material-ui/core/TextField';
 //   console.log(event.target.value);
 // }
 
-class HoursRow extends Componet {
+class HoursRow extends Component {
 
   constructor(props) {
     super(props);
@@ -19,32 +19,48 @@ class HoursRow extends Componet {
   }
 
   componentDidMount() {
-    const { hours } =  this.props;
+    const { hours } = this.props;
     this.setState({
-      day: hours.day,
-      opening: hours.opening,
-      closing: hours.closing
+      day: hours.day || null ,
+      opening: hours.opening || null ,
+      closing: hours.closing || null
     })
   }
 
   buildHours = () => {
-    const hours = {
-      day: props.day,
-      opening:
+    const hoursPackage = {
+      packageType: "hours",
+      hoursInfo: {
+        day: this.props.hours.day,
+        opening: this.state.opening,
+        closing: this.state.closing
+      }
     }
-    return hours;
+    return hoursPackage;
   }
 
-  const handleTime = (event) => {
+  setHoursState = (key, value) => {
+    this.setState( () => ({
+      [key]: value
+    }));
+  }
+
+  handleTimeChange = (event) => {
     const {name, value} = event.target;
-    buildHours(name, value);
+    const myPromise = new Promise( (resolve, reject) => {
+      this.setHoursState(name, value);
+      resolve();
+    });
+    myPromise.then( () => {
+      this.props.handleBusinessInput(this.buildHours());
+    });
   }
 
   render(){
     return (
       <TableRow>
         <TableCell>
-          {props.hours.day}
+          {this.props.hours.day}
         </TableCell>
         <TableCell>
           <form noValidate>
@@ -52,14 +68,14 @@ class HoursRow extends Componet {
               id="open"
               type="time"
               name="opening"
-              defaultValue={props.hours.opening}
+              defaultValue={this.props.hours.opening}
               InputLabelProps={{
                 shrink: true,
               }}
               inputProps={{
                 step: 300, // 5 min
               }}
-              onChange={handleTime}
+              onChange={this.handleTimeChange}
             />
           </form>
         </TableCell>
@@ -69,14 +85,14 @@ class HoursRow extends Componet {
               id="close"
               type="time"
               name="closing"
-              defaultValue={props.hours.closing}
+              defaultValue={this.props.hours.closing}
               InputLabelProps={{
                 shrink: true,
               }}
               inputProps={{
                 step: 300, // 5 min
               }}
-              onChange={handleTime}
+              onChange={this.handleTimeChange}
             />
           </form>
         </TableCell>

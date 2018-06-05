@@ -96,7 +96,7 @@ handleBusinessService = (businessPackage) => {
 }
 
 handleBusinesssHours = (businessPackage) => {
-  console.log(businessPackage);
+  this.setHoursState(businessPackage.hoursInfo);
 }
 
 
@@ -126,6 +126,19 @@ fetchBusinessData = (businessId) => {
     const newState = {...this.state.business, services: updatedService}
     this.setState({business: newState})
   }
+
+//--------------Hours Functions-------------------
+
+setHoursState = (newHours) => {
+  const newHoursState = [];
+  newHoursState.push(this.state.business.hours.map((hour) => {
+    if(hour.day === newHours.day)
+      return newHours;
+    else
+      return hour;
+  }));
+  this.setState({hours: newHoursState})
+}
 
 //---------------This renders the User Panel------------------------
   render() {
