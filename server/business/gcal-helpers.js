@@ -13,7 +13,7 @@ module.exports = function(calendar, jwtClient) {
     insertCalendarEvent: function (calendarId, event) {
 
       return calendar.events.insert({
-        auth: jwtClient,
+        // auth: jwtClient,
         calendarId: calendarId,
         resource: event
       }).then(res => {

@@ -14,11 +14,7 @@ const SERVICE_ACCOUNT = require('./service_account_secrets.json')
 const { API_KEY } = require('./calendar_secrets.json')
 
 const { google } = require('googleapis')
-const calendar = google.calendar({
-  version: 'v3',
-  // Include API_KEY to prevent `Error: Daily Limit for Unauthenticated Use Exceeded. Continued use requires signup`
-  auth: API_KEY
-})
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -34,22 +30,45 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
 
   // Generate JWT auth client. Very little documentation on this. Do not promisify `.authorize()`
   // http://isd-soft.com/tech_blog/accessing-google-apis-using-service-account-node-js/
+
+
+  const oauth2Client = new google.auth.OAuth2(
+    // keys.client_id,
+    // keys.client_secret,
+    // keys.redirect_uris[0]
+    SERVICE_ACCOUNT.api_client_id,
+    SERVICE_ACCOUNT.api_client_secret,
+    null
+  )
+
   const jwtClient = new google.auth.JWT(
     SERVICE_ACCOUNT.client_email,
     null,
     SERVICE_ACCOUNT.private_key,
-    ['https://www.googleapis.com/auth/calendar.readonly']
+    ['https://www.googleapis.com/auth/calendar']
   ).authorize((err, tokens) => {
     if (err) {
       console.log(err)
       return
     } else {
       console.log('Successfully authorized Google service account')
+      // console.log(tokens)
+      oauth2Client.setCredentials(tokens)
     }
   })
 
+  // const client = await google.auth.getClient({
+  //   keyFile: path.join(__dirname, 'jwt.keys.json'),
+  //   scopes: 'https://www.googleapis.com/auth/drive.readonly'
+  // });
+
+  const calendar = google.calendar({
+    version: 'v3',
+    auth: oauth2Client
+  })
+
   // Initialize GCal-specific interface helpers
-  const calendarHelpers = require('./business/gcal-helpers.js')(calendar, jwtClient);
+  const calendarHelpers = require('./business/gcal-helpers.js')(calendar, oauth2Client);
   // Initialize MongoDB-specific interface helpers
   const dataHelpers = require("./business/data-helpers.js")(db, calendarHelpers);
   // Initialize REST endpoints
