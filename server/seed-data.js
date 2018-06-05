@@ -26,6 +26,15 @@ module.exports = [
         "priceCents": 3000,
         "durationMin": 15
       }
+    ],
+    "hours": [
+      {"day": "Monday", "opening": "09:00", "closing": "09:00"},
+      {"day": "Tuesday", "opening": "09:00", "closing": "09:00"},
+      {"day": "Wednesday", "opening": "09:00", "closing": "09:00"},
+      {"day": "Thursday", "opening": "09:00", "closing": "09:00"},
+      {"day": "Friday", "opening": "09:00", "closing": "09:00"},
+      {"day": "Saturday", "opening": "09:00", "closing": "09:00"},
+      {"day": "Sunday", "opening": "09:00", "closing": "09:00"}
     ]
   },
   {
@@ -56,6 +65,15 @@ module.exports = [
         "priceCents": 2500,
         "durationMin": 15
       }
+    ],
+    "hours": [
+      {"day": "Monday", "opening": "10:00", "closing": "09:00"},
+      {"day": "Tuesday", "opening": "10:00", "closing": "09:00"},
+      {"day": "Wednesday", "opening": "10:00", "closing": "09:00"},
+      {"day": "Thursday", "opening": "10:00", "closing": "09:00"},
+      {"day": "Friday", "opening": "10:00", "closing": "09:00"},
+      {"day": "Saturday", "opening": "10:00", "closing": "09:00"},
+      {"day": "Sunday", "opening": "10:00", "closing": "09:00"}
     ]
   },
   {
@@ -86,6 +104,15 @@ module.exports = [
         "priceCents": 10000,
         "durationMin": 40
       }
+    ],
+    "hours": [
+      {"day": "Monday", "opening": "11:00", "closing": "12:00"},
+      {"day": "Tuesday", "opening": "11:00", "closing": "12:00"},
+      {"day": "Wednesday", "opening": "11:00", "closing": "12:00"},
+      {"day": "Thursday", "opening": "11:00", "closing": "12:00"},
+      {"day": "Friday", "opening": "11:00", "closing": "12:00"},
+      {"day": "Saturday", "opening": "11:00", "closing": "12:00"},
+      {"day": "Sunday", "opening": "11:00", "closing": "12:00"}
     ]
   }
 ]
