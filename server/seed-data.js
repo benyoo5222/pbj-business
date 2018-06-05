@@ -7,6 +7,11 @@ module.exports = [
     "address": "46 Spadina Ave, Toronto, ON M5V 2H8",
     "phone": "416-555-1234",
     "calendarId": "fn8tokeshkjgra785ffa0u717c@group.calendar.google.com",
+    "calendarData": {
+      "gridSmall": 15,
+      "gridLarge": 60,
+      "maxConcurrentAppointments": 2
+    },
     "services": [
       {
         "billingCode": "1",
