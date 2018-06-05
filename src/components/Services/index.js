@@ -11,6 +11,8 @@ import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import TextField from '@material-ui/core/TextField';
+
 
 import Services from './services.js'
 import axios from 'axios'
@@ -40,32 +42,40 @@ class Serviceslist extends Component {
       }
     }
   }
-  openForm = (open, serviceId) => {
-    const currentServices = this.props.data.business.services.filter(service => service.billingCode === serviceId)
-    this.setState({open: open, currentServices: currentServices})
+  openForm = (open, value) => {
+    if (typeof value === Number) {
+      const currentServices = this.props.data.business.services.filter(service => service.billingCode === value)
+      this.setState({open: open, currentServices: currentServices})
+    } else if (value === "Add") {
+      this.setState({open: open})
+    }
+
   }
   closeForm = (e) => {
     this.setState({open: false})
   }
   handleChange = (serviceId, event) => {
     const {name, value} = event.target;
-    const editedService = {...this.state.editServices, [name]: value, billingCode: serviceId[0]}
+    const editedService = {...this.state.editServices, type: "edit", [name]: value, billingCode: serviceId[0]}
     this.setState({editServices: editedService})
   }
   sendEdit = () => {
+    // Need to make sure that it doens't edit if no fields were entered.
     const array = this.props.data.business.services.filter( value => value.billingCode !== this.state.editServices.billingCode)
     const newestarray = [...array, this.state.editServices]
     newestarray.sort(function(a, b) {
       return a.billingCode - b.billingCode;
     })
-
     axios.put(`http://localhost:5000/api/business/123456123456123456123456/services`,
       {data: newestarray})
-      .then(res => console.log(res))
+      .then(res => {
+        const settingState = [this.state.editServices];
+        this.setState({open: false})
+      })
       .catch(err => {
         console.error(err)
       })
-    this.setState({open: false})
+
   }
 
   render() {
@@ -81,20 +91,40 @@ class Serviceslist extends Component {
             disableEscapeKeyDown
             open={this.state.open}
           >
-            <DialogTitle>{this.state.currentServices.map(info => info.description)}</DialogTitle>
+            <DialogTitle>{this.state.currentServices.length > 0 ? this.state.currentServices.map(info => info.description) : "Add a service"}</DialogTitle>
             <DialogContent>
               <form className={classes.container}>
                 <FormControl className={classes.formControl}>
                   <InputLabel htmlFor="name-simple" >Service Description</InputLabel>
-                  <Input id="name-simple" name="description" onBlur={this.handleChange.bind(this, this.state.currentServices.map(info => info.billingCode))}/>
+                  <Input
+                    id="name-simple"
+                    name="description"
+                    placeholder= {this.state.currentServices.map(info => info.description)}
+                    onBlur={this.handleChange.bind(this, this.state.currentServices.map(info => info.billingCode))}/>
                 </FormControl>
                 <FormControl className={classes.formControl}>
-                  <InputLabel htmlFor="age-simple">Maximum Time</InputLabel>
-                  <Input id="name-simple" name="durationMin" onBlur={this.handleChange.bind(this, this.state.currentServices.map(info => info.billingCode))}/>
+                  <TextField
+                    name="durationMin"
+                    id="time"
+                    label="Max Time"
+                    type="number"
+                    onBlur={this.handleChange.bind(this, this.state.currentServices.map(info => info.billingCode))}
+                    placeholder={this.state.currentServices.map(info => info.durationMin)}
+                    className={classes.textField}
+                    inputProps={{
+                      step: 5, // 5 min
+                    }}
+                  />
                 </FormControl>
                 <FormControl className={classes.formControl}>
-                  <InputLabel htmlFor="age-simple">Price</InputLabel>
-                  <Input id="name-simple" name="priceCents" onBlur={this.handleChange.bind(this, this.state.currentServices.map(info => info.billingCode))}/>
+                  <TextField
+                    name= "priceCents"
+                    label="Price"
+                    type="number"
+                    onBlur={this.handleChange.bind(this, this.state.currentServices.map(info => info.billingCode))}
+                    placeholder={this.state.currentServices.map(info => info.priceCents)}
+                    id="formatted-numberformat-input"
+                  />
                 </FormControl>
               </form>
             </DialogContent>
