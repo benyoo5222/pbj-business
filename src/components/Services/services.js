@@ -9,7 +9,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import axios from 'axios'
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
-
+import DeleteIcon from '@material-ui/icons/Delete';
 import EditForm from './editserviceform.js'
 
 class Services extends Component {

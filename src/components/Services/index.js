@@ -90,6 +90,20 @@ class Serviceslist extends Component {
 
   }
 
+  deleteService = () => {
+    const currentService = this.state.currentServices.map(id => id.billingCode)
+    const filteredService = this.props.data.business.services.filter( value => value.billingCode !== currentService[0])
+    axios.put(`http://localhost:5000/api/business/123456123456123456123456/services`,
+      {data: filteredService})
+      .then(res => {
+        console.log(res);
+        this.setState({open: false})
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  }
+
   render() {
     const each_service = <Services data = {this.props.data.business} openForm={this.openForm} updateService={this.props.updateService}/>
     const { classes } = this.props;
@@ -143,6 +157,9 @@ class Serviceslist extends Component {
             <DialogActions>
               <Button onClick={this.closeForm} color="primary">
                 Cancel
+              </Button>
+              <Button onClick={this.deleteService} color="secondary">
+                Delete
               </Button>
               <Button onClick={this.sendEdit} color="primary">
                 Ok
