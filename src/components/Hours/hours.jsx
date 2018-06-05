@@ -43,13 +43,13 @@ function createData(name, open, close) {
 }
 
 const data = [
-  createData('Monday', "9:00 AM", "9:00 PM"),
-  createData('Tuesday', "9:00 AM", "9:00 PM"),
-  createData('Wednesday', "9:00 AM", "9:00 PM"),
-  createData('Thursday', "9:00 AM", "9:00 PM"),
-  createData('Friday', "9:00 AM", "9:00 PM"),
-  createData('Saturday', "9:00 AM", "9:00 PM"),
-  createData('Sunday', "9:00 AM", "9:00 PM")
+  createData('Monday', "09:00", "09:00"),
+  createData('Tuesday', "09:00", "09:00"),
+  createData('Wednesday', "09:00", "09:00"),
+  createData('Thursday', "09:00", "09:00"),
+  createData('Friday', "09:00", "09:00"),
+  createData('Saturday', "09:00", "09:00"),
+  createData('Sunday', "09:00", "09:00")
 ];
 
 function CustomizedTable(props) {
@@ -80,7 +80,8 @@ function CustomizedTable(props) {
                       id="time"
                       label="Opening Time"
                       type="time"
-                      defaultValue="07:30"
+                      //defaultValue="07:30"
+                      defaultValue={n.open}
                       className={classes.textField}
                       InputLabelProps={{
                         shrink: true,
@@ -97,7 +98,7 @@ function CustomizedTable(props) {
                       id="time"
                       label="Closing Time"
                       type="time"
-                      defaultValue="07:30"
+                      defaultValue={n.close}
                       className={classes.textField}
                       InputLabelProps={{
                         shrink: true,
