@@ -2,6 +2,7 @@
 
 const express = require('express');
 const businessRoutes = express.Router();
+const stripeHelpers = require('./stripe-helpers.js')
 
 const returnJson = function(res, err, data) {
   if (err) {
@@ -58,6 +59,7 @@ module.exports = function(dataHelpers, calendarHelpers) {
   })
 
   businessRoutes.post('/:id/appointment', (req, res) => {
+    stripeHelpers.hello()
     dataHelpers.createCalendarEvent(req.params.id, req.body.data, (err, data) => {
       returnJson(res, err, data)
     })
