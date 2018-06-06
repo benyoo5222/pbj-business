@@ -49,10 +49,14 @@ class HoursRow extends Component {
     const {name, value} = event.target;
     const myPromise = new Promise( (resolve, reject) => {
       this.setHoursState(name, value);
+      //this.props.EditHoursDB(hoursPackage) //maybe build package here
       resolve();
     });
     myPromise.then( () => {
-      this.props.handleBusinessInput(this.buildHours());
+      //maybe build the package here
+      const hoursPackage = this.buildHours();
+      this.props.EditHoursDB(hoursPackage.hoursInfo);
+      this.props.handleBusinessInput(hoursPackage);
     });
   }
 
