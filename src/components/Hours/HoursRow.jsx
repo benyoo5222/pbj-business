@@ -52,7 +52,8 @@ class HoursRow extends Component {
       resolve();
     });
     myPromise.then( () => {
-      this.props.handleBusinessInput(this.buildHours());
+      const hoursPackage = this.buildHours();
+      this.props.handleBusinessInput(hoursPackage);
     });
   }
 
