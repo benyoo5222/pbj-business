@@ -73,7 +73,7 @@ class App extends Component {
 
 //---------------Life Cycle Functions--------------
 componentDidMount() {
-    //this.fetchBusinessData(this.getBusinessId());
+    this.fetchBusinessData(this.getBusinessId());
   }
 
 //---------------Handle Functions-----------------
