@@ -83,6 +83,7 @@ class Serviceslist extends Component {
       .then(res => {
         console.log(res);
         this.setState({open: false})
+        this.props.updateService(changingServices)
       })
       .catch(err => {
         console.error(err)
@@ -98,6 +99,7 @@ class Serviceslist extends Component {
       .then(res => {
         console.log(res);
         this.setState({open: false})
+        this.props.updateService(filteredService)
       })
       .catch(err => {
         console.error(err)
@@ -107,6 +109,15 @@ class Serviceslist extends Component {
   render() {
     const each_service = <Services data = {this.props.data.business} openForm={this.openForm} updateService={this.props.updateService}/>
     const { classes } = this.props;
+    const currentServiceInfo = this.state.currentServices[0]
+    let description = "";
+    let duration = "";
+    let price = "";
+    if (currentServiceInfo) {
+      description = currentServiceInfo.description;
+      duration = currentServiceInfo.durationMin;
+      price = currentServiceInfo.priceCents;
+    }
 
     return (
       <main>
@@ -125,7 +136,7 @@ class Serviceslist extends Component {
                   <Input
                     id="name-simple"
                     name="description"
-                    placeholder= {this.state.currentServices.map(service => service.description)}
+                    placeholder={description}
                     onBlur={this.handleChange}/>
                 </FormControl>
                 <FormControl className={classes.formControl}>
@@ -135,7 +146,7 @@ class Serviceslist extends Component {
                     label="Max Time"
                     type="number"
                     onBlur={this.handleChange}
-                    placeholder={this.state.currentServices.map(service => service.durationMin)}
+                    placeholder={duration}
                     className={classes.textField}
                     inputProps={{
                       step: 5, // 5 min
@@ -148,7 +159,7 @@ class Serviceslist extends Component {
                     label="Price"
                     type="number"
                     onBlur={this.handleChange}
-                    placeholder={this.state.currentServices.map(service => service.priceCents)}
+                    placeholder={price}
                     id="formatted-numberformat-input"
                   />
                 </FormControl>
