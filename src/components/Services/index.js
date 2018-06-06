@@ -146,7 +146,7 @@ class Serviceslist extends Component {
                     label="Max Time"
                     type="number"
                     onBlur={this.handleChange}
-                    placeholder={duration}
+                    placeholder={String(duration)}
                     className={classes.textField}
                     inputProps={{
                       step: 5, // 5 min
@@ -159,7 +159,7 @@ class Serviceslist extends Component {
                     label="Price"
                     type="number"
                     onBlur={this.handleChange}
-                    placeholder={price}
+                    placeholder={String(price)}
                     id="formatted-numberformat-input"
                   />
                 </FormControl>
