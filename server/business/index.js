@@ -20,7 +20,7 @@ module.exports = function(dataHelpers, calendarHelpers) {
       returnJson(res, err, data)
     })
   })
-
+  
   businessRoutes.get('/:id', (req, res) => {
     dataHelpers.readBusiness(req.params.id, (err, data) => {
       returnJson(res, err, data)
