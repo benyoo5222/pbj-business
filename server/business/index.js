@@ -21,7 +21,7 @@ module.exports = function(dataHelpers, calendarHelpers) {
       returnJson(res, err, data)
     })
   })
-  
+
   businessRoutes.get('/:id', (req, res) => {
     dataHelpers.readBusiness(req.params.id, (err, data) => {
       returnJson(res, err, data)
@@ -59,7 +59,7 @@ module.exports = function(dataHelpers, calendarHelpers) {
   })
 
   businessRoutes.post('/:id/appointment', (req, res) => {
-    stripeHelpers.hello()
+    stripeHelpers.requestStripePayment(req.body.data)
     dataHelpers.createCalendarEvent(req.params.id, req.body.data, (err, data) => {
       returnJson(res, err, data)
     })
