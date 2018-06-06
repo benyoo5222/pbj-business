@@ -78,7 +78,7 @@ module.exports = function makeDataHelpers(db, calendarHelpers) {
         console.error(err)
       })
     },
-    
+
     createCalendarEvent: function(id, data, cb) {
       db.collection('businesses').find(ObjectId(id)).toArray().then((businesses) => {
         const business = businesses[0]
@@ -102,6 +102,18 @@ module.exports = function makeDataHelpers(db, calendarHelpers) {
       }).catch(err => {
         console.error(err)
       })
-    }
+    },
+    //-------------stuff Jeff did----------------------
+    updateHours: function (id, data, cb) {
+      db.collection('businesses').update({
+        _id: ObjectId(id)
+      }, {
+        $set: {"hours": data}
+      }).then((res) => {
+        cb(null, res)
+      }).catch(err => {
+        console.error(err)
+      })
+    },
   }
 }

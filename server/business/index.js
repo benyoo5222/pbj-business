@@ -61,6 +61,12 @@ module.exports = function(dataHelpers, calendarHelpers) {
       returnJson(res, err, data)
     })
   })
+  //----------stuff jeff did----------------------
+  businessRoutes.put('/:id/hours', (req, res) => {
+    dataHelpers.updateHours(req.params.id, req.body.data, (err, data) => {
+      returnJson(res, err, data)
+    })
+  })
 
   return businessRoutes
 }
