@@ -83,10 +83,12 @@ module.exports = function makeDataHelpers(db, calendarHelpers) {
       db.collection('businesses').find(ObjectId(id)).toArray().then((businesses) => {
         // Retrives the only (ie. first) 'business' object matched by db.find(id)
         const business = businesses[0]
-        console.log(data)
+
         // Construct the event name from the services requested (by billing code)
         const summary = data.services.map(billingCode => {
-          business.services.find(service => service.billingCode === billingCode).description
+          return business.services.find(service => {
+            return service.billingCode == billingCode
+          }).description
         }).join(', ')
 
         const event = {
