@@ -1,6 +1,6 @@
 module.exports = {
   requestStripePayment: function(data) {
-    const stripekeys = require('./stripekeys.json');
+    const stripekeys = require('../stripe_secrets.json');
     const keySecret = stripekeys.keySecret;
     const stripe = require("stripe")(keySecret);
 

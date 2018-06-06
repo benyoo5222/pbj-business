@@ -25,4 +25,6 @@ yarn-error.log*
 /src/calendar_secrets.json
 /server/calendar_secrets.json
 /server/service_account_secrets.json
+/server/stripe_secrets.json
+# Deprecate due to file rename
 /server/business/stripekeys.json
