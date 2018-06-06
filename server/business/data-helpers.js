@@ -96,13 +96,14 @@ module.exports = function makeDataHelpers(db, calendarHelpers) {
           start: { dateTime: data.event.start },
           end: { dateTime: data.event.end },
           description: `${summary} for ${data.customer.name} (${data.customer.phone || 'No phone number'})`,
-          attendees: [{
-            'email': data.customer.email || ''
-          }],
+          // attendees: [{
+          //   'email': data.customer.email || ''
+          // }],
           location: business.address || ''
         }
 
-        return calendarHelpers.insertCalendarEvent(business.calendarId, event)
+        // return calendarHelpers.insertCalendarEvent(business.calendarId, event)
+        return true
       }).then(res => {
         cb(null, res)
       }).catch(err => {
