@@ -81,18 +81,22 @@ module.exports = function makeDataHelpers(db, calendarHelpers) {
     
     createCalendarEvent: function(id, data, cb) {
       db.collection('businesses').find(ObjectId(id)).toArray().then((businesses) => {
+        // Retrives the only (ie. first) 'business' object matched by db.find(id)
         const business = businesses[0]
-        // TODO: Get customer data here
-        const customer = { name: 'Jeff Lee', email: null, phone: '647-555-1111' }
+        console.log(data)
+        // Construct the event name from the services requested (by billing code)
+        const summary = data.services.map(billingCode => {
+          business.services.find(service => service.billingCode === billingCode).description
+        }).join(', ')
 
         const event = {
-          summary: data.name || 'No event name',
-          start: { dateTime: data.start },
-          end: { dateTime: data.end },
-          description: `${data.name} for ${customer.name} (${customer.phone || 'No phone number'})`,
-          // attendees: [{
-          //   'email': customer.email || ''
-          // }],
+          summary: summary,
+          start: { dateTime: data.event.start },
+          end: { dateTime: data.event.end },
+          description: `${summary} for ${data.customer.name} (${data.customer.phone || 'No phone number'})`,
+          attendees: [{
+            'email': data.customer.email || ''
+          }],
           location: business.address || ''
         }
 

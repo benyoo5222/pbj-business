@@ -5,6 +5,7 @@ const businessRoutes = express.Router();
 
 const returnJson = function(res, err, data) {
   if (err) {
+    console.error(err)
     res.status(500).json({ error: err.message })
   } else {
     res.json(data)
