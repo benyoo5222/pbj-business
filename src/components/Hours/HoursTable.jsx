@@ -13,7 +13,6 @@ function HoursTable (props) {
       key={i}
       hours={hours}
       handleBusinessInput={props.handleBusinessInput}
-      EditHoursDB={props.EditHoursDB}
     />
   });
 

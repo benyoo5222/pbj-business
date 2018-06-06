@@ -89,6 +89,7 @@ handleBusinessService = (businessPackage) => {
 
 handleBusinesssHours = (businessPackage) => {
   this.setHoursState(businessPackage.hoursInfo);
+  this.editHoursDB();
 }
 
 
@@ -122,14 +123,26 @@ fetchBusinessData = (businessId) => {
 //--------------Hours Functions-------------------
 
 setHoursState = (newHours) => {
-  const newHoursState = [];
-  newHoursState.push(this.state.business.hours.map((hour) => {
+  const newHoursState = this.state.business.hours.map((hour) => {
     if(hour.day === newHours.day)
       return newHours;
     else
       return hour;
-  }));
-  this.setState({hours: newHoursState})
+  });
+  const HoursState = {...this.state.business, hours: newHoursState};
+  this.setState({business: HoursState});
+}
+
+editHoursDB = () => {
+  const hours = this.state.business.hours;
+  axios.put(`http://localhost:5000/api/business/123456123456123456123456/hours`,
+    {data: hours})
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.error(err)
+    })
 }
 
 //---------------This renders the User Panel------------------------
