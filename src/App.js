@@ -58,15 +58,7 @@ class App extends Component {
       business: {
         name: '',
         services: [],
-        hours: [
-          {day: "Monday", opening: "09:00", closing: "09:00"},
-          {day: "Tuesday", opening: "09:00", closing: "09:00"},
-          {day: "Wednesday", opening: "09:00", closing: "09:00"},
-          {day: "Thursday", opening: "09:00", closing: "09:00"},
-          {day: "Friday", opening: "09:00", closing: "09:00"},
-          {day: "Saturday", opening: "09:00", closing: "09:00"},
-          {day: "Sunday", opening: "09:00", closing: "09:00"}
-        ]
+        hours: []
       }
     }
   }
