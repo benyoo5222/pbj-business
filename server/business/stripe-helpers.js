@@ -20,7 +20,7 @@ module.exports = {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'benyoo5222@gmail.com',
+      user: 'pbjscheduler@gmail.com',
       pass: gmailPassword.password
     }
   });
