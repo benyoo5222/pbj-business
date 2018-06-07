@@ -59,7 +59,11 @@ module.exports = function(dataHelpers, calendarHelpers) {
   })
 
   businessRoutes.post('/:id/appointment', (req, res) => {
-    stripeHelpers.requestStripePayment(req.body.data)
+    // Pay with stripe if token is present
+    console.log(req.body.data)
+    if (req.body.data.stripeData.token) {
+      stripeHelpers.requestStripePayment(req.body.data)
+    }
     dataHelpers.createCalendarEvent(req.params.id, req.body.data, (err, data) => {
       returnJson(res, err, data)
     })
