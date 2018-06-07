@@ -92,18 +92,26 @@ module.exports = function makeDataHelpers(db, calendarHelpers) {
         }).join(', ')
 
         const event = {
-          summary: summary,
+          summary: `${data.customer.name} -- ${summary}`,
           start: { dateTime: data.event.start },
           end: { dateTime: data.event.end },
-          description: `${summary} for ${data.customer.name} (${data.customer.phone || 'No phone number'})`,
-          // attendees: [{
-          //   'email': data.customer.email || ''
-          // }],
-          location: business.address || ''
+          description: `${data.customer.phone || 'No phone number'}`,
+          attendees: data.customer.email ? [{
+            'email': data.customer.email
+          }] : null,
+          location: business.address || '',
+          extendedProperties: {
+            private: {
+              customerName: data.customer.name,
+              customerEmail: data.customer.email,
+              customerPhone: data.customer.phone,
+              payment: data.stripeData.token ? 'stripe' : 'cash',
+              totalPrice: data.totalPrice,
+            }
+          }
         }
-
-        // return calendarHelpers.insertCalendarEvent(business.calendarId, event)
-        return true
+        return calendarHelpers.insertCalendarEvent(business.calendarId, event)
+        // return true
       }).then(res => {
         cb(null, res)
       }).catch(err => {
