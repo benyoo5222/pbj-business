@@ -85,14 +85,14 @@ module.exports = function makeDataHelpers(db, calendarHelpers) {
         const business = businesses[0]
 
         // Construct the event name from the services requested (by billing code)
-        const summary = data.services.map(billingCode => {
+        const serviceList = data.services.map(billingCode => {
           return business.services.find(service => {
             return service.billingCode == billingCode
           }).description
         }).join(', ')
 
         const event = {
-          summary: `${data.customer.name} -- ${summary}`,
+          summary: `${data.customer.name} -- ${serviceList}`,
           start: { dateTime: data.event.start },
           end: { dateTime: data.event.end },
           description: `${data.customer.phone || 'No phone number'}`,
@@ -105,8 +105,9 @@ module.exports = function makeDataHelpers(db, calendarHelpers) {
               customerName: data.customer.name,
               customerEmail: data.customer.email,
               customerPhone: data.customer.phone,
-              payment: data.stripeData.token ? 'stripe' : 'cash',
+              paymentMethod: data.stripeData.token ? 'stripe' : 'cash',
               totalPrice: data.totalPrice,
+              serviceList: serviceList
             }
           }
         }

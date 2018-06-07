@@ -1,5 +1,9 @@
+import React from 'react'
 import axios from 'axios'
 import { API_KEY, CALENDAR_ID } from '../../calendar_secrets.json'
+
+import LocalAtm from '@material-ui/icons/LocalAtm'
+import CreditCard from '@material-ui/icons/CreditCard'
 
 // https://blog.daftcode.pl/react-calendar-with-google-calendar-as-cms-tutorial-5f5d81e425a9
 
@@ -14,6 +18,18 @@ export function getEvents() {
           start: event.start.date || new Date(event.start.dateTime),
           end: event.end.date || new Date(event.end.dateTime),
           title: event.summary,
+          summary: event.summary,
+          description: event.description,
+          customer: {
+            name: event.extendedProperties.private.customerName,
+            email: event.extendedProperties.private.customerEmail,
+            phone: event.extendedProperties.private.customerPhone,
+          },
+          payment: {
+            totalPrice: event.extendedProperties.private.totalPrice,
+            method: event.extendedProperties.private.paymentMethod,
+          },
+          serviceList: event.extendedProperties.private.serviceList
         }
       })
       return events
@@ -21,4 +37,33 @@ export function getEvents() {
     .catch(err => {
       console.error(err)
     })
+}
+
+export function EventAgenda ({ event }) {
+  return (
+    <div>
+      <p>
+        <strong>{event.customer.name} </strong>
+        <span style={{float: 'right'}}>{formatPhoneNumber(event.customer.phone)}</span>
+      <br/>
+        {event.payment.method === 'cash' 
+          ? <LocalAtm style={{...iconStyle, color: '#00ad45'}}/>
+          : <CreditCard style={{...iconStyle, color: '#00afe1'}}/>}
+        {event.serviceList}
+        <a style={{float: 'right'}} href={`mailto:${event.customer.email}`}>Email</a>
+      </p>
+    </div>
+  )
+}
+
+const iconStyle = {
+  marginBottom: '-6px',
+  marginRight: '12px'
+}
+
+// https://stackoverflow.com/questions/8358084/regular-expression-to-reformat-a-us-phone-number-in-javascript
+function formatPhoneNumber(s) {
+  var s2 = (""+s).replace(/\D/g, '');
+  var m = s2.match(/^(\d{3})(\d{3})(\d{4})$/);
+  return (!m) ? null : "(" + m[1] + ") " + m[2] + "-" + m[3];
 }
