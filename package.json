@@ -13,6 +13,7 @@
     "googleapis": "^31.0.2",
     "moment": "^2.22.2",
     "mongodb": "^2.2.35",
+    "nodemailer": "^4.6.5",
     "react": "^16.4.0",
     "react-big-calendar": "^0.19.1",
     "react-dom": "^16.4.0",
