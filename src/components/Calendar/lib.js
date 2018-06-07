@@ -44,13 +44,21 @@ export function EventAgenda ({ event }) {
     <div>
       <p>
         <strong>{event.customer.name} </strong>
-        <span style={{float: 'right'}}>{formatPhoneNumber(event.customer.phone)}</span>
-      <br/>
-        {event.payment.method === 'cash' 
-          ? <LocalAtm style={{...iconStyle, color: '#00ad45'}}/>
-          : <CreditCard style={{...iconStyle, color: '#00afe1'}}/>}
-        {event.serviceList}
+        <span style={{paddingLeft: '22px'}}>{event.serviceList}</span>
         <a style={{float: 'right'}} href={`mailto:${event.customer.email}`}>Email</a>
+      <br/>
+        {
+          event.payment.method === 'cash' 
+          ? <LocalAtm style={{...iconStyle, color: '#00ad45'}}/>
+          : <CreditCard style={{...iconStyle, color: '#00afe1'}}/>
+        }
+        <em>
+          {formatMoney(event.payment.totalPrice)}
+          {event.payment.method === 'cash' ? ' due' : ' paid via Stripe'}
+        </em>
+        <a href={`tel:${event.customer.phone}`} style={{float: 'right'}}>
+          {formatPhoneNumber(event.customer.phone)}
+        </a>
       </p>
     </div>
   )
@@ -66,4 +74,8 @@ function formatPhoneNumber(s) {
   var s2 = (""+s).replace(/\D/g, '');
   var m = s2.match(/^(\d{3})(\d{3})(\d{4})$/);
   return (!m) ? null : "(" + m[1] + ") " + m[2] + "-" + m[3];
+}
+
+function formatMoney(priceCents) {
+  return `$ ${(priceCents / 100.0).toFixed(2)}`
 }
