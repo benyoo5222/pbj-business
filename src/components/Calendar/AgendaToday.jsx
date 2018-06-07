@@ -59,10 +59,12 @@ class AgendaToday extends React.Component {
     let messages = message(this.props.messages)
     let end = dates.add(date, SAME_DAY, 'day')
 
-    let range = dates.range(date, end, 'day')
-
-    events = events.filter(event => inRange(event, date, end, this.props))
-
+    // Work-aroundfor default behaviour hiding events before today's *time* on *any* day
+    // let range = dates.range(date, end, 'day')
+    // events = events.filter(event => inRange(event, date, end, this.props))
+    let range = [dates.startOf(date, 'day')]
+    
+    
     events.sort((a, b) => +get(a, startAccessor) - +get(b, startAccessor))
 
     return (
