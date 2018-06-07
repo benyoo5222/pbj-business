@@ -31,21 +31,17 @@ class Calendar extends Component {
           style={calendarStyle}
           events={this.state.events}
           defaultDate={new Date()}
-          defaultView='today'
+          defaultView='agenda'
           drilldownView="agenda"
           views={{
             month: true,
             week: true,
             day: true,
-            agenda: true,
-            today: AgendaToday
+            agenda: AgendaToday
           }}
           scrollToTime={new Date()}
           components={{
             agenda: {
-              event: EventAgenda
-            },
-            today: {
               event: EventAgenda
             }
           }}

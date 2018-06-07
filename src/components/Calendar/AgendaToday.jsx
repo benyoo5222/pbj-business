@@ -13,6 +13,9 @@ import { accessor, dateFormat, dateRangeFormat } from 'react-big-calendar/lib/ut
 import { inRange } from 'react-big-calendar/lib/utils/eventLevels'
 import { isSelected } from 'react-big-calendar/lib/utils/selection'
 
+const SINGLE_DAY = 1
+const SAME_DAY = 0
+
 class AgendaToday extends React.Component {
   static propTypes = {
     events: PropTypes.array,
@@ -39,8 +42,9 @@ class AgendaToday extends React.Component {
   }
 
   static defaultProps = {
-    length: 30,
+    length: 1,
   }
+
 
   componentDidMount() {
     this._adjustHeader()
@@ -53,7 +57,7 @@ class AgendaToday extends React.Component {
   render() {
     let { length, date, events, startAccessor } = this.props
     let messages = message(this.props.messages)
-    let end = dates.add(date, length, 'day')
+    let end = dates.add(date, SAME_DAY, 'day')
 
     let range = dates.range(date, end, 'day')
 
@@ -66,9 +70,6 @@ class AgendaToday extends React.Component {
         <table ref="header" className="rbc-agenda-table">
           <thead>
             <tr>
-              <th className="rbc-header" ref="dateCol">
-                {messages.date}
-              </th>
               <th className="rbc-header" ref="timeCol">
                 {messages.time}
               </th>
@@ -113,26 +114,11 @@ class AgendaToday extends React.Component {
             isSelected(event, selected)
           )
         : {}
-      let dateLabel =
-        idx === 0 && localizer.format(day, agendaDateFormat, culture)
-      let first =
-        idx === 0 ? (
-          <td rowSpan={events.length} className="rbc-agenda-date-cell">
-            {DateComponent ? (
-              <DateComponent day={day} label={dateLabel} />
-            ) : (
-              dateLabel
-            )}
-          </td>
-        ) : (
-          false
-        )
 
       let title = get(event, titleAccessor)
 
       return (
         <tr key={dayKey + '_' + idx} className={className} style={style}>
-          {first}
           <td className="rbc-agenda-time-cell">
             {this.timeRangeLabel(day, event)}
           </td>
@@ -209,8 +195,7 @@ class AgendaToday extends React.Component {
     ]
 
     if (widths[0] !== this._widths[0] || widths[1] !== this._widths[1]) {
-      this.refs.dateCol.style.width = this._widths[0] + 'px'
-      this.refs.timeCol.style.width = this._widths[1] + 'px'
+      this.refs.timeCol.style.width = this._widths[0] + 'px'
     }
 
     if (isOverflowing) {
@@ -222,18 +207,18 @@ class AgendaToday extends React.Component {
   }
 }
 
-AgendaToday.range = (start, { length = AgendaToday.defaultProps.length }) => {
-  let end = dates.add(start, length, 'day')
+AgendaToday.range = (start, { length = SAME_DAY }) => {
+  let end = dates.add(start, SAME_DAY, 'day')
   return { start, end }
 }
 
-AgendaToday.navigate = (date, action, { length = AgendaToday.defaultProps.length }) => {
+AgendaToday.navigate = (date, action, { length = SINGLE_DAY }) => {
   switch (action) {
     case navigate.PREVIOUS:
-      return dates.add(date, -length, 'day')
+      return dates.add(date, -SINGLE_DAY, 'day')
 
     case navigate.NEXT:
-      return dates.add(date, length, 'day')
+      return dates.add(date, SINGLE_DAY, 'day')
 
     default:
       return date
@@ -242,10 +227,10 @@ AgendaToday.navigate = (date, action, { length = AgendaToday.defaultProps.length
 
 AgendaToday.title = (
   start,
-  { length = AgendaToday.defaultProps.length, formats, culture }
+  { length = SINGLE_DAY, formats, culture }
 ) => {
-  let end = dates.add(start, length, 'day')
-  return localizer.format({ start, end }, formats.agendaHeaderFormat, culture)
+  let end = dates.add(start, SINGLE_DAY, 'day')
+  return localizer.format( start, formats.dayHeaderFormat, culture)
 }
 
 export default AgendaToday
