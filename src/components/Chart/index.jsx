@@ -1,46 +1,72 @@
-import React, {Component} from 'react';
-var LineChart = require("react-chartjs").Line;
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Typography from '@material-ui/core/Typography';
+import LineChart from './lineChart.jsx';
+import PieChart from './pieChart.jsx';
 
-class Chart extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
-        datasets: [
-          {
-            label: "My First dataset",
-            fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(220,220,220,1)",
-            data: [65, 59, 80, 81, 56, 55, 40]
-          },
-          {
-            label: "My Second dataset",
-            fillColor: "rgba(151,187,205,0.2)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(151,187,205,1)",
-            data: [28, 48, 40, 19, 86, 27, 90]
-          }
-        ]
-      },
-      chartOptions: {
-        scaleShowGridLines : true
-      }
-    }
-  }
+
+function TabContainer(props) {
+  return (
+    <Typography component="div" style={{ padding: 8 * 3 }}>
+      {props.children}
+    </Typography>
+  );
+}
+
+TabContainer.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.paper,
+  },
+});
+
+class SimpleTabs extends React.Component {
+  state = {
+    value: 0,
+  };
+
+  handleChange = (event, value) => {
+    this.setState({ value });
+  };
 
   render() {
+    const { classes } = this.props;
+    const { value } = this.state;
+
     return (
-      <LineChart data={this.state.data} options={this.state.chartOptions} width="600" height="250"/>
+      <div className={classes.root}>
+        <AppBar position="static">
+          <Tabs value={value} onChange={this.handleChange}>
+            <Tab label="Appointments" />
+            <Tab label="Busy Times" />
+            <Tab label="Services" />
+          </Tabs>
+        </AppBar>
+        {value === 0 && <TabContainer>
+          <LineChart />
+
+        </TabContainer>}
+        {value === 1 && <TabContainer>
+
+        </TabContainer>}
+        {value === 2 && <TabContainer>
+          <PieChart />
+        </TabContainer>}
+      </div>
     );
   }
 }
 
-export default Chart;
+SimpleTabs.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(SimpleTabs);
