@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import moment from 'moment'
 import BigCalendar from 'react-big-calendar'
 import { getEvents, EventAgenda } from './lib.js'
+import AgendaToday from './AgendaToday'
 BigCalendar.momentLocalizer(moment)
 
 require('react-big-calendar/lib/css/react-big-calendar.css')
@@ -30,12 +31,21 @@ class Calendar extends Component {
           style={calendarStyle}
           events={this.state.events}
           defaultDate={new Date()}
-          defaultView='agenda'
+          defaultView='today'
           drilldownView="agenda"
-
+          views={{
+            month: true,
+            week: true,
+            day: true,
+            agenda: true,
+            today: AgendaToday
+          }}
           scrollToTime={new Date()}
           components={{
             agenda: {
+              event: EventAgenda
+            },
+            today: {
               event: EventAgenda
             }
           }}
