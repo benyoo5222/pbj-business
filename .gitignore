@@ -30,3 +30,4 @@ yarn-error.log*
 # Deprecate due to file rename
 /server/business/stripekeys.json
 /server/gmail_password.json
+/server/twilio_secrets.json
