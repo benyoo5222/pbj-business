@@ -14,6 +14,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 import Services from './components/Services';
 import Calendar from './components/Calendar';
+import Notifications from './components/Notifications';
 import Hours from './components/Hours';
 
 import { BUSINESS_ID } from './calendar_secrets.json'
@@ -215,6 +216,7 @@ editHoursDB = () => {
                   </div>
                   ) }} />
                 <Route path='/calendar' component={Calendar} />
+                <Route path='/notifications' component={Notifications} />
                 <Route path='/services' render={() => <Services data={this.state} updateService={this.updatedService}/>} />
                 <Route path='/hours' render={() =>
                   <Hours
