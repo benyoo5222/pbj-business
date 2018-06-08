@@ -9,12 +9,18 @@ module.exports = {
     if (data.stripeData.token.id) {
       stripePayment.stripePayment(data.stripeData.token,data.customer.email, data.totalPrice)
       .then(charge => {
-        NodeMailer.sendEmail(data.customer.email, bodyMessage)
-        twilio.sendText(bodyMessage, data.customer.phone)
+        if (data.typeOfPayment.text) {
+          twilio.sendText(bodyMessage, data.customer.phone)
+        } else {
+          NodeMailer.sendEmail(data.customer.email, bodyMessage)
+        }
       })
     } else {
-      NodeMailer.sendEmail(data.customer.email, bodyMessage)
-      twilio.sendText(bodyMessage, data.customer.phone)
+      if (data.typeOfPayment.text) {
+        twilio.sendText(bodyMessage, data.customer.phone)
+      } else {
+        NodeMailer.sendEmail(data.customer.email, bodyMessage)
+      }
     }
       return true
   }
