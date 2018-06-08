@@ -85,10 +85,14 @@ module.exports = function makeDataHelpers(db, calendarHelpers) {
         const business = businesses[0]
 
         // Construct the event name from the services requested (by billing code)
-        const serviceList = data.services.map(billingCode => {
-          return business.services.find(service => {
-            return service.billingCode == billingCode
-          }).description
+        // const serviceList = data.services.map(billingCode => {
+        //   return business.services.find(service => {
+        //     return service.billingCode == billingCode
+        //   }).description
+        // }).join(', ')
+
+        const serviceList = data.services.map(service => {
+          return service.description
         }).join(', ')
 
         const event = {

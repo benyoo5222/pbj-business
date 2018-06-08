@@ -17,9 +17,9 @@ const orderDetail = (startDate, endDate, stripeToken, customerName, services, to
 
     When: ${appointmentStart} to ${appointmentEnd}.
 
-    The services you have chosen are ${selectedServices.map(value => value.description)}.
+    The services you have chosen are ${services.map(value => value.description).join(', ')}.
 
-    The total price is $${(totalPrice/100).toFixed(2)}.
+    The total price is $${(totalPrice/100.0).toFixed(2)}.
 
     ${message}`
 
