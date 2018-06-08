@@ -16,6 +16,7 @@ import Services from './components/Services';
 import Calendar from './components/Calendar';
 import Notifications from './components/Notifications';
 import Hours from './components/Hours';
+import Chart from './components/Chart';
 
 import { BUSINESS_ID } from './calendar_secrets.json'
 
@@ -224,6 +225,7 @@ editHoursDB = () => {
                     handleBusinessInput={this.handleBusinessInput}
                   />}
                 />
+                <Route path='/reports' component={Chart} />
                 <Route render={() => { return (<div>404! :(</div>) }} />
               </Switch>
 
