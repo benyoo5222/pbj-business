@@ -7,6 +7,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import LineChart from './lineChart.jsx';
 import PieChart from './pieChart.jsx';
+import BarChart from './barChart.jsx';
 
 
 function TabContainer(props) {
@@ -52,10 +53,9 @@ class SimpleTabs extends React.Component {
         </AppBar>
         {value === 0 && <TabContainer>
           <LineChart />
-
         </TabContainer>}
         {value === 1 && <TabContainer>
-
+          <BarChart />
         </TabContainer>}
         {value === 2 && <TabContainer>
           <PieChart />

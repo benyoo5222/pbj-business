@@ -47,7 +47,7 @@ class PieChart extends Component {
       ],
       chartOptions: {
         animationSteps :100,
-        animationEasing : "easeOutBounce",
+        animationEasing : "easeInOutBack",
       }
     }
   }
