@@ -60,7 +60,6 @@ module.exports = function(dataHelpers, calendarHelpers) {
 
   businessRoutes.post('/:id/appointment', (req, res) => {
     // Pay with stripe if token is present
-    console.log(req.body.data)
     if (req.body.data.stripeData.token) {
       stripeHelpers.requestStripePayment(req.body.data)
     }

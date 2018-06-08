@@ -1,4 +1,4 @@
-const stripekeys = require('../server/stripe_secrets.json');
+const stripekeys = require('../stripe_secrets.json');
 const keySecret = stripekeys.keySecret;
 const stripe = require("stripe")(keySecret);
 

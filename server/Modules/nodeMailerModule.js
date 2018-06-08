@@ -1,4 +1,4 @@
-const gmailPassword = require('../server/gmail_password.json');
+const gmailPassword = require('../gmail_password.json');
 const nodemailer = require('nodemailer');
 
 const sendEmail = (customerEmail, bodyMessage) => {

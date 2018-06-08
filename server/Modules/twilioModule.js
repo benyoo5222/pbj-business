@@ -1,4 +1,4 @@
-const twilioKeys = require('../server/twilio_secrets.json');
+const twilioKeys = require('../twilio_secrets.json');
 const accountSid = twilioKeys.accountSid;
 const authToken = twilioKeys.authToken;
 const client = require('twilio')(accountSid, authToken);
