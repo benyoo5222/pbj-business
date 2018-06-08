@@ -15,6 +15,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Services from './components/Services';
 import Calendar from './components/Calendar';
 import Notifications from './components/Notifications';
+import Information from './components/Information';
 import Hours from './components/Hours';
 import Chart from './components/Chart';
 
@@ -199,6 +200,12 @@ editHoursDB = () => {
                     <ListItemText primary="Reports"></ListItemText>
                   </ListItem>
                 </Link>
+
+                <Link to="/information" style={noUnderline}>
+                  <ListItem button>
+                    <ListItemText primary="Information"></ListItemText>
+                  </ListItem>
+                </Link>
               </List>
 
             </Drawer>
@@ -218,6 +225,8 @@ editHoursDB = () => {
                   ) }} />
                 <Route path='/calendar' component={Calendar} />
                 <Route path='/notifications' component={Notifications} />
+                {/* <Route path='/information' component={Information} /> */}
+                <Route path='/information' render={() => <Information business={this.state.business} />} />
                 <Route path='/services' render={() => <Services data={this.state} updateService={this.updatedService}/>} />
                 <Route path='/hours' render={() =>
                   <Hours
