@@ -61,7 +61,10 @@ class App extends Component {
       business: {
         name: '',
         services: [],
-        hours: []
+        hours: [],
+        calendarData: {
+          maxConcurrentAppointments: 0
+        }
       }
     }
   }
@@ -104,6 +107,7 @@ fetchBusinessData = (businessId) => {
         const business = res.data[0]
         if (!business) throw new Error(`Error fetching data from business ID ${businessId}`)
         this.setState({business: business})
+        console.log(business)
       }).catch(err => {
         console.error(err)
       })

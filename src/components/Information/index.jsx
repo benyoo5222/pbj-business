@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
-// import CheckboxGroup from './CheckboxGroup'
-
 
 class Notifications extends Component {
   constructor(props) {
     super(props);
+    console.log(props)
     this.state = { 
       name: this.props.business.name,
       address: this.props.business.address,
-      phone: this.props.business.phone
+      phone: this.props.business.phone,
+      maxConcurrentAppointments: this.props.business.calendarData.maxConcurrentAppointments
      }
   }
 
@@ -20,19 +20,9 @@ class Notifications extends Component {
     });
   };
 
-  /* componentDidMount = () => {
-    this.setState({
-      name: this.props.business.name,
-      address: this.props.business.address,
-      phone: this.props.business.phone
-    })
-  } */
-
   render() {
     return (
       <div>
-        Setup link
-        max concurrent appointments
 
         <TextField
           id="name"
@@ -43,7 +33,7 @@ class Notifications extends Component {
           style={{display: 'block'}}
         />
         <TextField
-          id="name"
+          id="address"
           label="Address"
           value={this.state.address}
           onChange={this.handleChange('address')}
@@ -51,19 +41,27 @@ class Notifications extends Component {
           style={{display: 'block'}}
         />
         <TextField
-          id="name"
+          id="phone"
           label="Primary Phone"
           value={this.state.phone}
           onChange={this.handleChange('phone')}
           margin="normal"
           style={{display: 'block'}}
         />
+        <TextField
+          id="maxConcurrentAppointments"
+          label="Concurrent Appointments"
+          value={this.state.maxConcurrentAppointments}
+          onChange={this.handleChange('maxConcurrentAppointments')}
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          margin="normal"
+        />
+        <br/>
+        Setup link
 
-        {/* <CheckboxGroup 
-          formLabel="New appointment notification" 
-          formHelperText="Get notified when a new booking is made"
-          text
-          /> */}
       </div>
     );
   }
