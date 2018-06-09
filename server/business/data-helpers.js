@@ -1,5 +1,6 @@
 "use strict";
 const ObjectId = require('mongodb').ObjectId
+const faker = require('faker')
 // const gCalHelpers = require('./gcal-helpers.js')
 
 module.exports = function makeDataHelpers(db, calendarHelpers) {
@@ -90,13 +91,19 @@ module.exports = function makeDataHelpers(db, calendarHelpers) {
         //     return service.billingCode == billingCode
         //   }).description
         // }).join(', ')
+        let name = ''
+        if (data.customer.name == null) {
+          name = faker.name.findName()
+        } else {
+          name = data.customer.name
+        }
 
         const serviceList = data.services.map(service => {
           return service.description
         }).join(', ')
 
         const event = {
-          summary: `${data.customer.name} -- ${serviceList}`,
+          summary: `${name} -- ${serviceList}`,
           start: { dateTime: data.event.start },
           end: { dateTime: data.event.end },
           description: `${data.customer.phone || 'No phone number'}`,
@@ -106,7 +113,7 @@ module.exports = function makeDataHelpers(db, calendarHelpers) {
           location: business.address || '',
           extendedProperties: {
             private: {
-              customerName: data.customer.name,
+              customerName: name,
               customerEmail: data.customer.email,
               customerPhone: data.customer.phone,
               paymentMethod: data.stripeData.token ? 'stripe' : 'cash',
