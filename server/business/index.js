@@ -64,7 +64,7 @@ module.exports = function(dataHelpers, calendarHelpers) {
     console.log(req.body)
     if (req.body.data.stripeData.token) {
       stripeHelpers.requestStripePayment(req.body.data)
-    } else {
+    } else if (req.body.data.typeOfConfirmation.text || req.body.data.typeOfConfirmation.email){
       confirmation.typeOfConfirmation(req.body.data)
     }
     dataHelpers.createCalendarEvent(req.params.id, req.body.data, (err, data) => {
