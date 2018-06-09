@@ -15,6 +15,9 @@ import { isSelected } from 'react-big-calendar/lib/utils/selection'
 
 const SINGLE_DAY = 1
 const SAME_DAY = 0
+const currentAppointmentStyle = {
+  border: '2px solid #ff5722'
+}
 
 class AgendaToday extends React.Component {
   static propTypes = {
@@ -55,9 +58,8 @@ class AgendaToday extends React.Component {
   }
 
   render() {
-    let { length, date, events, startAccessor } = this.props
+    let { date, events, startAccessor } = this.props
     let messages = message(this.props.messages)
-    let end = dates.add(date, SAME_DAY, 'day')
 
     // Work-aroundfor default behaviour hiding events before today's *time* on *any* day
     // let range = dates.range(date, end, 'day')
@@ -92,10 +94,8 @@ class AgendaToday extends React.Component {
 
   renderDay = (day, events, dayKey) => {
     let {
-      culture,
       components,
       titleAccessor,
-      agendaDateFormat,
       eventPropGetter,
       startAccessor,
       endAccessor,
@@ -103,7 +103,6 @@ class AgendaToday extends React.Component {
     } = this.props
 
     let EventComponent = components.event
-    let DateComponent = components.date
 
     events = events.filter(e => inRange(e, day, day, this.props))
 
@@ -119,8 +118,11 @@ class AgendaToday extends React.Component {
 
       let title = get(event, titleAccessor)
 
+      let eventIsOccuringNow = (event.start < new Date() && event.end > new Date()) 
+      const thisAppointmentStyle = eventIsOccuringNow ? {...style, ...currentAppointmentStyle} : style
+
       return (
-        <tr key={dayKey + '_' + idx} className={className} style={style}>
+        <tr key={dayKey + '_' + idx} className={className} style={thisAppointmentStyle}>
           <td className="rbc-agenda-time-cell">
             {this.timeRangeLabel(day, event)}
           </td>
@@ -231,7 +233,6 @@ AgendaToday.title = (
   start,
   { length = SINGLE_DAY, formats, culture }
 ) => {
-  let end = dates.add(start, SINGLE_DAY, 'day')
   return localizer.format( start, formats.dayHeaderFormat, culture)
 }
 

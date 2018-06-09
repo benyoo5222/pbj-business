@@ -107,7 +107,6 @@ fetchBusinessData = (businessId) => {
         const business = res.data[0]
         if (!business) throw new Error(`Error fetching data from business ID ${businessId}`)
         this.setState({business: business})
-        console.log(business)
       }).catch(err => {
         console.error(err)
       })
@@ -221,7 +220,7 @@ editHoursDB = () => {
                 <Route exact path='/' render={() => (
                   <Redirect to='/calendar'/>
                 )} />
-                <Route path='/calendar' component={Calendar} />
+                <Route path='/calendar' render={() => <Calendar business={this.state.business}/>} />
                 <Route path='/notifications' component={Notifications} />
                 <Route path='/information' render={() => <Information business={this.state.business} />} />
                 <Route path='/services' render={() => <Services data={this.state} updateService={this.updatedService}/>} />
