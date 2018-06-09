@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import SimpleDialogDemo from './SetupDialog'
 
 class Notifications extends Component {
   constructor(props) {
     super(props);
-    console.log(props)
     this.state = { 
       name: this.props.business.name,
       address: this.props.business.address,

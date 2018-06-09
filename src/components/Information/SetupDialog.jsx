@@ -6,8 +6,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import Dialog from '@material-ui/core/Dialog';
-import Typography from '@material-ui/core/Typography';
-import blue from '@material-ui/core/colors/blue';
 
 const setupUrlStylesString = '"background-color:#0AF;color:#fff;padding:6px 12px;border:1px solid #08B;text-decoration:none;font:bold 1.1em Arial"'
 const setupUrlStylesObj = {
@@ -93,7 +91,6 @@ class SimpleDialogDemo extends React.Component {
       <div>
         <Button onClick={this.handleClickOpen}>Add Scheduler widget</Button>
         <SimpleDialogWrapped
-          selectedValue={this.state.selectedValue}
           open={this.state.open}
           onClose={this.handleClose}
         />
