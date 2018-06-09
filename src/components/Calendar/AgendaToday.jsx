@@ -18,6 +18,10 @@ const SAME_DAY = 0
 const currentAppointmentStyle = {
   border: '2px solid #ff5722'
 }
+const pastAppointmentStyle = {
+  backgroundColor: 'rgb(240,240,240)',
+  color: '#aaa'
+}
 
 class AgendaToday extends React.Component {
   static propTypes = {
@@ -118,8 +122,17 @@ class AgendaToday extends React.Component {
 
       let title = get(event, titleAccessor)
 
+      let eventIsOver = (event.end < new Date())
       let eventIsOccuringNow = (event.start < new Date() && event.end > new Date()) 
-      const thisAppointmentStyle = eventIsOccuringNow ? {...style, ...currentAppointmentStyle} : style
+
+      // TODO: un-nest this decision tree
+      const thisAppointmentStyle = eventIsOver 
+        ? {...style, ...pastAppointmentStyle} 
+        : (
+          eventIsOccuringNow 
+            ? {...style, ...currentAppointmentStyle} 
+            : style
+          )
 
       return (
         <tr key={dayKey + '_' + idx} className={className} style={thisAppointmentStyle}>
