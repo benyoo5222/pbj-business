@@ -1,27 +1,25 @@
-const moment = require('moment');
+const moment = require('moment-timezone');
 
 const orderDetail = (startDate, endDate, stripeToken, customerName, services, totalPrice) => {
-  const appointmentStart = moment(startDate).format('LLL');
-  const appointmentEnd = moment(endDate).format('LLL');
+  const appointmentStart = moment(startDate).tz("America/Toronto").calendar()
+  const appointmentEnd = moment(endDate).tz("America/Toronto").format('LT');
 
   let message = "See you then!";
     if (stripeToken){
       message = "Thank you for payment. See you then!"
     }
 
-  const bodyMessage = ` Hi ${customerName}! Thanks for booking an appointment with us.
+  const bodyMessage = `Hi ${customerName}! Thanks for booking an appointment with us. Here are the appointment details:
 
-    This is a summary of your appointment.
+Location: Ben's Hair Salon, 46 Spadina Ave.
 
-    Location: 46 Spadina Ave.
+When: ${appointmentStart} to ${appointmentEnd}.
 
-    When: ${appointmentStart} to ${appointmentEnd}.
+Services: ${services.map(value => value.description).join(', ')}.
 
-    The services you have chosen are ${services.map(value => value.description).join(', ')}.
+Total price: $${(totalPrice/100.0).toFixed(2)}.
 
-    The total price is $${(totalPrice/100.0).toFixed(2)}.
-
-    ${message}`
+${message}`
 
   return bodyMessage;
 }
