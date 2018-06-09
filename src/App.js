@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch, Link } from 'react-router-dom'
+import { BrowserRouter, Route, Switch, Link, Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types';
 import axios from 'axios'
 
@@ -218,18 +218,11 @@ editHoursDB = () => {
               <div className={classes.toolbar} />
 
               <Switch>
-                {/* <Route exact path='/' component={Calendar} /> */}
-                <Route exact path='/' render={() => { return (
-                  <div>
-                    <p>Welcome to {this.state.business.name || 'business'}</p>
-                    <br/><br/><br/>
-                    <p>To get started, place this line of code into your website source code (or ask your webmaster to do so)</p>
-                    <code style={{backgroundColor:'#ddd', padding:'2px'}}>{setupUrl}</code>
-                  </div>
-                  ) }} />
+                <Route exact path='/' render={() => (
+                  <Redirect to='/calendar'/>
+                )} />
                 <Route path='/calendar' component={Calendar} />
                 <Route path='/notifications' component={Notifications} />
-                {/* <Route path='/information' component={Information} /> */}
                 <Route path='/information' render={() => <Information business={this.state.business} />} />
                 <Route path='/services' render={() => <Services data={this.state} updateService={this.updatedService}/>} />
                 <Route path='/hours' render={() =>
@@ -253,5 +246,4 @@ App.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const setupUrl = `<a href="#" onClick="MyWindow=window.open('https://pgoshulak.github.io/pbj-scheduler-widget/123456','MyWindow',width=600,height=300); return false;" style="background-color:#0AF;color:#fff;padding:6px 12px;border:1px solid #08B;text-decoration:none;font:bold 1.1em Arial">Book now</a>`
 export default withStyles(styles)(App);
