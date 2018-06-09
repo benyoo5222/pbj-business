@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
+import SimpleDialogDemo from './SetupDialog'
 
 class Notifications extends Component {
   constructor(props) {
@@ -60,7 +61,7 @@ class Notifications extends Component {
           margin="normal"
         />
         <br/>
-        Setup link
+        <SimpleDialogDemo/>
 
       </div>
     );
