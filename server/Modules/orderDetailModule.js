@@ -5,7 +5,7 @@ const orderDetail = (startDate, endDate, stripeToken, customerName, services, to
   const appointmentEnd = moment(endDate).format('LLL');
 
   let message = "See you then!";
-    if (stripeToken.id){
+    if (stripeToken){
       message = "Thank you for payment. See you then!"
     }
 
