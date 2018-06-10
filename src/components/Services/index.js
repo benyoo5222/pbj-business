@@ -44,7 +44,7 @@ class Serviceslist extends Component {
   openForm = (open, value) => {
     if (value === "Add Service") {
       const type = {...this.state.editServices, type: "Add"};
-      this.setState({open: open, editServices: type})
+      this.setState({currentServices: [], open: open, editServices: type})
     } else {
       const currentServices = this.props.data.business.services.filter(service => service.billingCode === value)
       const type = {...this.state.editServices, type: "Edit"};
