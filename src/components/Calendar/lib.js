@@ -40,6 +40,8 @@ export function getEvents() {
 }
 
 export function EventAgenda ({ event }) {
+  let tax = Number(event.payment.totalPrice * .13);
+  let totalPrice = Number(event.payment.totalPrice) + tax;
   return (
     <div>
       <p>
@@ -48,12 +50,12 @@ export function EventAgenda ({ event }) {
         <a style={{float: 'right'}} href={`mailto:${event.customer.email}`}>Email</a>
       <br/>
         {
-          event.payment.method === 'cash' 
+          event.payment.method === 'cash'
           ? <LocalAtm style={{...iconStyle, color: '#00ad45'}}/>
           : <CreditCard style={{...iconStyle, color: '#00afe1'}}/>
         }
-        <em>
-          {formatMoney(event.payment.totalPrice)}
+        <em>{/*Jeff added this*/}
+          {formatMoney(totalPrice)}
           {event.payment.method === 'cash' ? ' due' : ' paid via Stripe'}
         </em>
         <a href={`tel:${event.customer.phone}`} style={{float: 'right'}}>
