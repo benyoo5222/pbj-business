@@ -28,8 +28,8 @@ class BarChart extends Component {
   render(){
     return(
       <div>
-        <h2>Appointments Per Hour</h2>
-        <Chart data={this.state.chartData} options={this.state.chartOptions}/>
+        <h2>Average Appointments Per Hour</h2>
+        <Chart data={this.state.chartData} options={this.state.chartOptions} width="600" height="350"/>
       </div>
     );
   }
