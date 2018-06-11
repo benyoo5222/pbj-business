@@ -30,7 +30,7 @@ class Services extends Component {
               <TableCell numeric padding={'dense'}>${(eachService.priceCents/100).toFixed(2)}</TableCell>
               <TableCell padding={'dense'}>
                 <IconButton aria-label="Comments">
-                  <EditIcon name="Ben" value="AbC" onClick={this.handleOpen.bind(this, eachService.billingCode)}/>
+                  <EditIcon onClick={this.handleOpen.bind(this, eachService.billingCode)}/>
                 </IconButton>
               </TableCell>
             </TableRow>)}

@@ -31,7 +31,7 @@ const styles = theme => ({
     minWidth: 120,
   },
   button: {
-
+    float: 'right'
   },
   table: {
     maxWidth: '100%',
@@ -52,6 +52,10 @@ class Serviceslist extends Component {
         durationMin: 0
       }
     }
+  }
+
+  componentDidMount(){
+    console.log(this.props.data);
   }
   openForm = (value) => {
     if (value === "Add Service") {
@@ -137,6 +141,9 @@ class Serviceslist extends Component {
 
     return (
       <main>
+      <Button className={classes.button} variant="outlined" color="primary" onClick={this.openForm.bind(this, "Add Service")}>
+        Add Service
+      </Button>
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
@@ -152,11 +159,6 @@ class Serviceslist extends Component {
               <TableCell component="th" scope="row"></TableCell>
               <TableCell numeric></TableCell>
               <TableCell numeric></TableCell>
-              <TableCell>
-                <Button className={classes.button} variant="outlined" color="primary" onClick={this.openForm.bind(this, "Add Service")}>
-                  Add Service
-               </Button>
-              </TableCell>
             </TableRow>
           </TableFooter>
         </Table>
@@ -176,7 +178,8 @@ class Serviceslist extends Component {
                     id="name-simple"
                     name="description"
                     placeholder={description}
-                    onBlur={this.handleChange}/>
+                    onBlur={this.handleChange}
+                  />
                 </FormControl>
                 <FormControl className={classes.formControl}>
                   <TextField
@@ -198,7 +201,7 @@ class Serviceslist extends Component {
                     label="Price"
                     type="number"
                     onBlur={this.handleChange}
-                    placeholder={String(price)}
+                    placeholder={String((price/100).toFixed(2))}
                     id="formatted-numberformat-input"
                   />
                 </FormControl>
