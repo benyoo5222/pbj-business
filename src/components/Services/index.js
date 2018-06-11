@@ -31,7 +31,7 @@ const styles = theme => ({
     minWidth: 120,
   },
   button: {
-
+    float: 'right'
   },
   table: {
     maxWidth: '100%',
@@ -137,6 +137,9 @@ class Serviceslist extends Component {
 
     return (
       <main>
+      <Button className={classes.button} variant="outlined" color="primary" onClick={this.openForm.bind(this, "Add Service")}>
+        Add Service
+      </Button>
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
@@ -152,11 +155,6 @@ class Serviceslist extends Component {
               <TableCell component="th" scope="row"></TableCell>
               <TableCell numeric></TableCell>
               <TableCell numeric></TableCell>
-              <TableCell>
-                <Button className={classes.button} variant="outlined" color="primary" onClick={this.openForm.bind(this, "Add Service")}>
-                  Add Service
-               </Button>
-              </TableCell>
             </TableRow>
           </TableFooter>
         </Table>
