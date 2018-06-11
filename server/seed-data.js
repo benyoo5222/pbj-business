@@ -16,29 +16,77 @@ module.exports = [
       {
         "billingCode": "1",
         "description": "Men's hair cut",
-        "priceCents": 2500,
+        "priceCents": 4500,
         "durationMin": 15
       },
       {
         "billingCode": "2",
         "description": "Women's hair cut",
-        "priceCents": 5000,
+        "priceCents": 7500,
         "durationMin": 30
       },
       {
         "billingCode": "3",
-        "description": "Hair coloration",
-        "priceCents": 3000,
+        "description": "Wash and Blow-Dry",
+        "priceCents": 4000,
         "durationMin": 15
-      }
+      },
+      {
+        "billingCode": "4",
+        "description": "Colour",
+        "priceCents": 7500,
+        "durationMin": 30
+      },
+      {
+        "billingCode": "5",
+        "description": "Bleach and Tone",
+        "priceCents": 14500,
+        "durationMin": 30
+      },
+      {
+        "billingCode": "6",
+        "description": "Highlights",
+        "priceCents": 10400,
+        "durationMin": 30
+      },
+      {
+        "billingCode": "7",
+        "description": "Balyage",
+        "priceCents": 16800,
+        "durationMin": 45
+      },
+      {
+        "billingCode": "8",
+        "description": "Ombre",
+        "priceCents": 16800,
+        "durationMin": 45
+      },
+      {
+        "billingCode": "9",
+        "description": "Underarm Laser Hair Removal",
+        "priceCents": 22500,
+        "durationMin": 45
+      },
+      {
+        "billingCode": "10",
+        "description": "Bikini Line Laser Hair Removal",
+        "priceCents": 22500,
+        "durationMin": 45
+      },
+      {
+        "billingCode": "11",
+        "description": "Facial Hair Laser Hair Removal",
+        "priceCents": 23000,
+        "durationMin": 45
+      },
     ],
     "hours": [
       {"day": "Sunday", "opening": "00:00", "closing": "00:00"},
-      {"day": "Monday", "opening": "09:00", "closing": "21:00"},
-      {"day": "Tuesday", "opening": "09:00", "closing": "21:00"},
-      {"day": "Wednesday", "opening": "09:00", "closing": "21:00"},
+      {"day": "Monday", "opening": "09:00", "closing": "20:00"},
+      {"day": "Tuesday", "opening": "09:00", "closing": "20:00"},
+      {"day": "Wednesday", "opening": "09:00", "closing": "20:00"},
       {"day": "Thursday", "opening": "09:00", "closing": "21:00"},
-      {"day": "Friday", "opening": "09:00", "closing": "23:00"},
+      {"day": "Friday", "opening": "09:00", "closing": "21:00"},
       {"day": "Saturday", "opening": "09:00", "closing": "18:00"}
     ]
   },
