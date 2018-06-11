@@ -13,7 +13,13 @@ import TextField from '@material-ui/core/TextField';
 
 
 import Services from './services.js'
-import axios from 'axios'
+import axios from 'axios';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
+import TableHead from '@material-ui/core/TableHead';
+import TableFooter from '@material-ui/core/TableFooter';
 
 const styles = theme => ({
   container: {
@@ -23,6 +29,12 @@ const styles = theme => ({
   formControl: {
     margin: theme.spacing.unit,
     minWidth: 120,
+  },
+  button: {
+
+  },
+  table: {
+    maxWidth: '100%',
   },
 });
 
@@ -41,14 +53,14 @@ class Serviceslist extends Component {
       }
     }
   }
-  openForm = (open, value) => {
+  openForm = (value) => {
     if (value === "Add Service") {
       const type = {...this.state.editServices, type: "Add"};
-      this.setState({currentServices: [], open: open, editServices: type})
+      this.setState({currentServices: [], open: true, editServices: type})
     } else {
       const currentServices = this.props.data.business.services.filter(service => service.billingCode === value)
       const type = {...this.state.editServices, type: "Edit"};
-      this.setState({open: open, currentServices: currentServices, editServices: type})
+      this.setState({open: true, currentServices: currentServices, editServices: type})
     }
   }
   closeForm = (e) => {
@@ -116,11 +128,40 @@ class Serviceslist extends Component {
       duration = currentServiceInfo.durationMin;
       price = currentServiceInfo.priceCents;
     }
+    const totalPrice = this.props.data.business.services.reduce((total, service) => {
+        return total + service.priceCents
+      }, 0)
+    const totalDuration = this.props.data.business.services.reduce((total, service) => {
+        return total + service.durationMin
+      }, 0)
 
     return (
       <main>
+        <Table className={classes.table}>
+          <TableHead>
+            <TableRow>
+              <TableCell>Service Description</TableCell>
+              <TableCell numeric padding={'dense'}>Duration (min)</TableCell>
+              <TableCell numeric padding={'dense'}>Price ($)</TableCell>
+              <TableCell padding={'dense'}>Edit</TableCell>
+            </TableRow>
+          </TableHead>
         {each_service}
+          <TableFooter>
+            <TableRow>
+              <TableCell component="th" scope="row"></TableCell>
+              <TableCell numeric></TableCell>
+              <TableCell numeric></TableCell>
+              <TableCell>
+                <Button className={classes.button} variant="outlined" color="primary" onClick={this.openForm.bind(this, "Add Service")}>
+                  Add Service
+               </Button>
+              </TableCell>
+            </TableRow>
+          </TableFooter>
+        </Table>
         <div>
+
           <Dialog
             disableBackdropClick
             disableEscapeKeyDown
