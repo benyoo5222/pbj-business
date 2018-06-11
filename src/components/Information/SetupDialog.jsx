@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import CodeIcon from '@material-ui/icons/Code';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import Dialog from '@material-ui/core/Dialog';
+import Typography from '@material-ui/core/Typography';
 
 const setupUrlStylesString = '"background-color:#0AF;color:#fff;padding:6px 12px;border:1px solid #08B;text-decoration:none;font:bold 1.1em Arial"'
 const setupUrlStylesObj = {
@@ -89,7 +91,14 @@ class SimpleDialogDemo extends React.Component {
   render() {
     return (
       <div>
-        <Button onClick={this.handleClickOpen}>Add Scheduler widget</Button>
+        {/* <div>
+          <IconButton aria-label="Comments">
+            <CodeIcon name="code-setup" value="code-setup" onClick={this.handleClickOpen}/>
+          </IconButton>
+        </div> */}
+        <Typography variant='caption'>
+          Ready to add PBJ-scheduler to your website? <a target="#" onClick={this.handleClickOpen} style={linkStyle}>Click here</a> to get started
+        </Typography>
         <SimpleDialogWrapped
           open={this.state.open}
           onClose={this.handleClose}
@@ -97,6 +106,12 @@ class SimpleDialogDemo extends React.Component {
       </div>
     );
   }
+}
+
+const linkStyle = {
+  color: 'rgb(255,0,80)',
+  textDecoration: 'underline',
+  cursor: 'pointer'
 }
 
 export default SimpleDialogDemo;

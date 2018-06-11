@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
-import SimpleDialogDemo from './SetupDialog'
+import SetupDialog from './SetupDialog'
 
 class Notifications extends Component {
   constructor(props) {
@@ -22,7 +22,6 @@ class Notifications extends Component {
   render() {
     return (
       <div>
-
         <TextField
           id="name"
           label="Business Name"
@@ -58,9 +57,9 @@ class Notifications extends Component {
           }}
           margin="normal"
         />
-        <br/>
-        <SimpleDialogDemo/>
-
+        <div style={{position: 'absolute', bottom: '20px'}}>
+          <SetupDialog/>
+        </div>
       </div>
     );
   }
