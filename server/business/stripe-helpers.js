@@ -13,7 +13,7 @@ module.exports = {
           NodeMailer.sendEmail(data.customer.email, bodyMessage);
         } else if (data.typeOfConfirmation.email){
           NodeMailer.sendEmail(data.customer.email, bodyMessage)
-        } else {
+        } else if (data.typeOfConfirmation.text){
           twilio.sendText(bodyMessage, data.customer.phone);
         }
       })
