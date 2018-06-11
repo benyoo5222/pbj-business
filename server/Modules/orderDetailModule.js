@@ -17,7 +17,7 @@ When: ${appointmentStart} to ${appointmentEnd}.
 
 Services: ${services.map(value => value.description).join(', ')}.
 
-Total price: $${(totalPrice/100.0).toFixed(2)}.
+Total price: $${(1.13*totalPrice/100.0).toFixed(2)}.
 
 ${message}`
 
