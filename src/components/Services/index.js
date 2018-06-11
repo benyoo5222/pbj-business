@@ -53,6 +53,10 @@ class Serviceslist extends Component {
       }
     }
   }
+
+  componentDidMount(){
+    console.log(this.props.data);
+  }
   openForm = (value) => {
     if (value === "Add Service") {
       const type = {...this.state.editServices, type: "Add"};
@@ -174,7 +178,8 @@ class Serviceslist extends Component {
                     id="name-simple"
                     name="description"
                     placeholder={description}
-                    onBlur={this.handleChange}/>
+                    onBlur={this.handleChange}
+                  />
                 </FormControl>
                 <FormControl className={classes.formControl}>
                   <TextField
@@ -196,7 +201,7 @@ class Serviceslist extends Component {
                     label="Price"
                     type="number"
                     onBlur={this.handleChange}
-                    placeholder={String(price)}
+                    placeholder={String((price/100).toFixed(2))}
                     id="formatted-numberformat-input"
                   />
                 </FormControl>
