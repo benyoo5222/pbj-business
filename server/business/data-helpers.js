@@ -92,7 +92,7 @@ module.exports = function makeDataHelpers(db, calendarHelpers) {
         //   }).description
         // }).join(', ')
         let name = ''
-        if (data.customer.name == null) {
+        if (data.customer.name == null || data.customer.name == ' ') {
           name = faker.name.findName()
         } else {
           name = data.customer.name
