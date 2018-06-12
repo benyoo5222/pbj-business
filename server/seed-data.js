@@ -10,7 +10,7 @@ module.exports = [
     "calendarData": {
       "gridSmall": 15,
       "gridLarge": 60,
-      "maxConcurrentAppointments": 2
+      "maxConcurrentAppointments": 1
     },
     "services": [
       {
@@ -35,12 +35,6 @@ module.exports = [
         "billingCode": "4",
         "description": "Colour",
         "priceCents": 7500,
-        "durationMin": 30
-      },
-      {
-        "billingCode": "5",
-        "description": "Bleach and Tone",
-        "priceCents": 14500,
         "durationMin": 30
       },
       {
