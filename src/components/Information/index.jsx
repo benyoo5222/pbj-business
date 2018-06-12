@@ -46,17 +46,6 @@ class Notifications extends Component {
           margin="normal"
           style={{display: 'block'}}
         />
-        <TextField
-          id="maxConcurrentAppointments"
-          label="Concurrent Appointments"
-          value={this.state.maxConcurrentAppointments}
-          onChange={this.handleChange('maxConcurrentAppointments')}
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          margin="normal"
-        />
         <div style={{position: 'absolute', bottom: '20px'}}>
           <SetupDialog/>
         </div>

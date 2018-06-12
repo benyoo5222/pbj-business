@@ -18,8 +18,8 @@ const setupUrlStylesObj = {
   textDecoration:'none',
   font:'bold 1.1em Arial'
 }
-const setupUrlWithStyles = `<a href="#" onClick="MyWindow=window.open('https://pgoshulak.github.io/pbj-scheduler-widget/123456','MyWindow',width=600,height=300); return false;" style=${setupUrlStylesString}>Book now</a>`
-const setupUrlPlain = `<a href="#" onClick="MyWindow=window.open('https://pgoshulak.github.io/pbj-scheduler-widget/123456','MyWindow',width=600,height=300); return false;">Book now</a>`
+const setupUrlWithStyles = `<a href="#" onClick="MyWindow=window.open('https://pgoshulak.github.io/pbj-scheduler-widget/123456','MyWindow',width=800,height=300); return false;" style=${setupUrlStylesString}>Book now</a>`
+const setupUrlPlain = `<a href="#" onClick="MyWindow=window.open('https://pgoshulak.github.io/pbj-scheduler-widget/123456','MyWindow',width=800,height=300); return false;">Book now</a>`
 
 const styles = {
   codeContainer: {
