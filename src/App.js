@@ -161,7 +161,15 @@ editHoursDB = () => {
             <AppBar position="absolute" className={classes.appBar}>
               <Toolbar>
                 <Typography variant="title" color="inherit" noWrap>
-                  {this.state.business.name || 'PBJ Scheduler'}
+                  {this.state.business.name || "Ben's Hair Salon"}
+                </Typography>
+                <Typography variant="subheading" color="inherit" noWrap 
+                  style={{ position: 'absolute', right: '20px'}}>
+                  <small>powered by</small>
+                  <span style={{
+                    fontWeight: 'bold',
+                    fontFamily: 'Dancing Script, Cursive, Sans Serif'
+                    }}> PBJ Scheduling </span>
                 </Typography>
               </Toolbar>
             </AppBar>
