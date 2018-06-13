@@ -62,14 +62,17 @@ module.exports = function(dataHelpers, calendarHelpers) {
   businessRoutes.post('/:id/appointment', (req, res) => {
     // Pay with stripe if token is present
     console.log(req.body)
-    if (req.body.data.stripeData.token) {
-      stripeHelpers.requestStripePayment(req.body.data)
-    } else if (req.body.data.typeOfConfirmation.text || req.body.data.typeOfConfirmation.email){
-      confirmation.typeOfConfirmation(req.body.data)
-    }
     dataHelpers.createCalendarEvent(req.params.id, req.body.data, (err, data) => {
       returnJson(res, err, data)
     })
+    // Send confirmation text/email
+    confirmation.sendConfirmations(req.body.data)
+    
+    // Note: Stripe should be first in a chain, but is causing issues.
+    // Moved to bottom and separated from chain for demo purposes
+    if (req.body.data.stripeData.token) {
+      stripeHelpers.requestStripePayment(req.body.data)
+    }
   })
   //----------stuff jeff did----------------------
   businessRoutes.put('/:id/hours', (req, res) => {
